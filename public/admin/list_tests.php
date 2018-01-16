@@ -3,14 +3,17 @@ require_once('../../includes/initialize.php');
 if(!$session->is_loged_in()){ redirect_to("login.php"); }
 find_selected_test(); 
 $tests = Tests::find_tests_for_subject($current_subject); // if(!cuurent ...)
+$subjects = Subjects::find_name_by_id($current_subject);
  ?>
 
 
 
 <?php include_layout_template('admin_header.php'); ?>	
 <a href="index.php">&laquo; Назад</a>
-<h2>Тесты: </h2>
 
+<?php foreach ($subjects as $subject): ?>
+<h2>Тесты: <?php echo $subject->name; ?> </h2>
+<?php endforeach; ?>
 
 <?php echo output_message($message); ?>
 

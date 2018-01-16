@@ -22,16 +22,19 @@ class Tests extends DatabaseObject {
 	public $truth5;
 	public $truth6;	
 	
+
+	
 	
 	public static function find_all() {
 		return self::find_by_sql("SELECT * FROM ".self::$table_name);
   }
 
+
    public static function find_tests_for_subject($current_subject_id){
 		return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE subject_id={$current_subject_id}");
    }
 
-  
+
   public static function find_by_id($id=0) {
     $result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE id={$id} LIMIT 1");
 		return !empty($result_array) ? array_shift($result_array) : false;
