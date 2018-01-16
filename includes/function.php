@@ -85,4 +85,20 @@ function log_action($action, $message="") {
 
   }
 
+
+  function list_test_for_user(){
+    $results = Subjects::find_all();
+    echo "<ul type=\"none\">";
+    foreach ($results as $result):
+      $output  = "<li>";
+      $output .= "<a href=\"time_to_tests.php?page=1&subject=";
+      $output .= urlencode($result->id);
+      $output .= "\"> ";
+      $output .= htmlentities($result->name);
+      $output .= "</a>";
+       echo $output;
+      endforeach;
+
+  }
+
 ?>

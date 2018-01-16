@@ -40,6 +40,7 @@ class Tests extends DatabaseObject {
 		return !empty($result_array) ? array_shift($result_array) : false;
   }
 
+
   public static function count_all(){
   		global $database;
   		$sql = "SELECT COUNT(*) FROM " .self::$table_name;
@@ -139,46 +140,7 @@ class Tests extends DatabaseObject {
 
 
 	public function form_for_test(){
-		if(!$_SESSION['accessLOW']){
-			echo "<form method=\"post\">";
-		echo $this->question . "<br />";
-	 	if(!empty($this->answer1)){
-	 		echo "<input type=\"radio\" name=\"answer[]\" value=\"1\" disabled >"; 
-	  		echo $this->answer1;
-	  		echo "<br />";
-	  	}
-		if(!empty($this->answer2)){
-			echo "<input type=\"radio\" name=\"answer[]\" value=\"2\" disabled >"; 
-			echo $this->answer2;
-			echo "<br />";
-		}
-
-		if(!empty($this->answer3)){
-			echo "<input type=\"radio\" name=\"answer[]\" value=\"3\" disabled >";
-			echo $this->answer3; 
-			echo "<br />";
-		}
-
-		if(!empty($this->answer4)){
-			echo "<input type=\"radio\" name=\"answer[]\" value=\"4\" disabled >";
-			echo $this->answer4;
-			echo "<br />";
-		} 
-
-		if(!empty($this->answer5)){
-			echo "<input type=\"radio\" name=\"answer[]\" value=\"5\" disabled >";
-			echo $this->answer5;
-			echo "<br />";
-		}
-
-		if(!empty($this->answer6)){
-			echo "<input type=\"radio\" name=\"answer[]\" value=\"6\" disabled >";
-			echo $this->answer6; 
-		}
-		echo "<br/><br/>";
-		echo "<input type=\"submit\" name=\"submit\" value=\"Готово\">";
-		echo "</form>";
-		} else {
+	
 		echo "<form method=\"post\">";
 		echo $this->question . "<br />";
 	 	if(!empty($this->answer1)){
@@ -217,7 +179,7 @@ class Tests extends DatabaseObject {
 		echo "<br/><br/>";
 		echo "<input type=\"submit\" name=\"submit\" value=\"Готово\">";
 		echo "</form>";
-	}
+	
 }
 
 }
