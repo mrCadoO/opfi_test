@@ -24,7 +24,6 @@ class Tests extends DatabaseObject {
 	
 
 	
-	
 	public static function find_all() {
 		return self::find_by_sql("SELECT * FROM ".self::$table_name);
   }
@@ -41,13 +40,15 @@ class Tests extends DatabaseObject {
   }
 
 
-  public static function count_all(){
+  public static function count_all($id){
   		global $database;
-  		$sql = "SELECT COUNT(*) FROM " .self::$table_name;
+  		$sql  = "SELECT COUNT(*) FROM " .self::$table_name;
+  		$sql .= " WHERE subject_id='{$id}'";
   		$result_set = $database->query($sql);
   		$row = $database->fetch_array($result_set);
   			return array_shift($row);
   	}
+
 
   
   public static function find_by_sql($sql="") {

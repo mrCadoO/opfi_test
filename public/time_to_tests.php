@@ -1,16 +1,19 @@
 <?php require_once('../includes/initialize.php'); ?>
 <?php 
   
- 
- 
-  
+
   find_selected_test();
+
+ $total_count = Tests::count_all($current_subject);
+  if($_GET['page'] > $total_count){
+    redirect_to('started_test_page.php');
+  }
+ 
 	$page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
 	$per_page = 1;
-	$total_count = Tests::count_all();
-	$pagination = new Pagination($page, $per_page, $total_count);
+	
+	$pagination = new Pagination($page, $per_page);
 
-  
   $sql  = "SELECT * FROM tests ";
 	$sql .= "WHERE subject_id='{$current_subject}' ";
 	$sql .= "LIMIT {$per_page} ";
@@ -29,7 +32,6 @@
 
 <?php $session->output_increase_num(); echo "<br>"; 
  echo $session->num_page_out() . "<br>";
-
 ?>
 
 
