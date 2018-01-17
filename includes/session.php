@@ -97,14 +97,29 @@ class Session{
 		return $_SESSION['pass'];
 	}
 
+
+
+
+
 	public function num_page(){
 	
 		return $_SESSION['NumPage']++;
 	}
 
-	public function count_page(){
-		return $_SESSION['NumPage'];
+	public function num_page_out(){
+		if(isset($_SESSION['NumPage'])){
+			echo $_SESSION['NumPage'];
+		}
 	}
+
+	
+
+
+
+
+
+
+
 
 	public function low_access_true(){
 		$_SESSION['accessLOW'] = true;

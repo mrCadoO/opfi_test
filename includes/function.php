@@ -98,7 +98,7 @@ function log_action($action, $message="") {
       $output .= "</a>";
        echo $output;
       endforeach;
-
+     
   }
 
 ?>

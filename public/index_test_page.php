@@ -3,7 +3,9 @@
 <?php if(!$session->access_permission()){redirect_to("started_test_page.php");}
 ?>
 <?php include_layout_template('header.php'); ?>
-<?php echo output_message($message); ?>
+<?php echo output_message($message); 
+ $session->annulment();
+?>
 
 
 
