@@ -5,13 +5,14 @@
 <?php include_layout_template('header.php'); ?>
 <?php echo output_message($message); 
  $session->annulment();
+ $user_id = $session->user_id();
 ?>
 
 
 
 
 
-<?php list_test_for_user(); ?>
+<?php list_test_for_user($user_id); ?>
 
 <br><br><br><br>
 

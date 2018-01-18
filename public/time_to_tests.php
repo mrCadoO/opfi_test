@@ -8,7 +8,12 @@
   if($_GET['page'] > $total_count){
     redirect_to('started_test_page.php');
   }
- 
+
+  $user_id = $_SESSION['user_id'];
+  $student = new Students();
+  $student->assessment = $_SESSION['assesment'];
+  $student->update_assessment($user_id);
+  
 	$page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
 	$per_page = 1;
 	
@@ -52,35 +57,35 @@ $test->form_for_test(); ?>
    		if($check[$i] == 1 && !empty($test->truth1)){
      		$session->increase();
      		$session->num_page();
-      		redirect_to("time_to_tests.php?page={$pagination->next_page()}&subject={$test->subject_id}");
+      		redirect_to("time_to_tests.php?page={$pagination->next_page()}&subject={$test->subject_id}&user_id={$user_id}");
       	} 
       	elseif($check[$i] == 2 && !empty($test->truth2)){
       		$session->increase();
       		$session->num_page();
-      		redirect_to("time_to_tests.php?page={$pagination->next_page()}&subject={$test->subject_id}");
+      		redirect_to("time_to_tests.php?page={$pagination->next_page()}&subject={$test->subject_id}&user_id={$user_id}");
       	} 
       	elseif($check[$i] == 3 && !empty($test->truth3)){
       		$session->increase();
       		$session->num_page();
-      		redirect_to("time_to_tests.php?page={$pagination->next_page()}&subject={$test->subject_id}");
+      		redirect_to("time_to_tests.php?page={$pagination->next_page()}&subject={$test->subject_id}&user_id={$user_id}");
       	}  
       	elseif($check[$i] == 4 && !empty($test->truth4)){
       		$session->increase();
       		$session->num_page();
-      		redirect_to("time_to_tests.php?page={$pagination->next_page()}&subject={$test->subject_id}");
+      		redirect_to("time_to_tests.php?page={$pagination->next_page()}&subject={$test->subject_id}&user_id={$user_id}");
      	 }  
      	elseif($check[$i] == 5 && !empty($test->truth5)){
       		$session->increase();
       		$session->num_page();
-      		redirect_to("time_to_tests.php?page={$pagination->next_page()}&subject={$test->subject_id}");
+      		redirect_to("time_to_tests.php?page={$pagination->next_page()}&subject={$test->subject_id}&user_id={$user_id}");
       	}	
       	elseif($check[$i] == 6 && !empty($test->truth6)){
       		$session->increase();
       		$session->num_page();
-      		redirect_to("time_to_tests.php?page={$pagination->next_page()}&subject={$test->subject_id}");
+      		redirect_to("time_to_tests.php?page={$pagination->next_page()}&subject={$test->subject_id}&user_id={$user_id}");
       	} else{ 
       		$session->num_page();
-			redirect_to("time_to_tests.php?page={$pagination->next_page()}&subject={$test->subject_id}"); 
+			redirect_to("time_to_tests.php?page={$pagination->next_page()}&subject={$test->subject_id}&user_id={$user_id}"); 
 		}   
     }
 }

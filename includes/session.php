@@ -50,13 +50,13 @@ class Session{
 	}
 
 	public function increase(){
-		return $_SESSION['number_of_correct_answers']++;
+		return $_SESSION['assesment']++;
 	}
 
 	
 	public function output_increase_num(){
-		if(!empty($_SESSION['number_of_correct_answers'])){
-			echo $_SESSION['number_of_correct_answers'];
+		if(!empty($_SESSION['assesment'])){
+			echo $_SESSION['assesment'];
 		} else {
 			 echo 0;
 		}
@@ -65,7 +65,7 @@ class Session{
 
 	public function annulment(){
 		$_SESSION['NumPage'] = 1;
-		$_SESSION['number_of_correct_answers'] = 0;
+		$_SESSION['assesment'] = 0;
 	}
 
 
@@ -131,6 +131,11 @@ class Session{
 
 	public function is_low_access(){
 		return $_SESSION['accessLOW'];
+	}
+
+	public function user_id(){
+		$_SESSION['user_id'] = $_GET['user_id'];
+		return $_SESSION['user_id'];
 	}
 
 

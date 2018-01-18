@@ -5,7 +5,7 @@
 		$student->first_name = $_POST['first_name'];
 		$student->last_name = $_POST['last_name'];
 		$student->group_name = $_POST['group_name'];
-		$student->count_truth_answer = 0;
+		$student->assessment = 0;
 		if(empty($student->first_name) || empty($student->last_name) || empty($student->group_name)){
 			$session->message("Необходимо заполнить все поля.");
 			redirect_to("started_test_page.php");
@@ -13,7 +13,7 @@
 			if($student->create()){
 				$session->access_true();
 				$session->annulment();
-				redirect_to("index_test_page.php");
+				redirect_to("index_test_page.php?user_id={$student->id}");
 			} else{
 				redirect_to("started_test_page.php");
 			}
@@ -36,7 +36,7 @@
 	<input type="text" name="last_name" />
 	<p>Введите название группы</p>
 	<input type="text" name="group_name" /><br /><br />
-	<input hidden type="text" name="count_truth_answer" /><br /><br />
+	<input hidden type="text" name="assessment" /><br /><br />
 	<input type="submit" name="submit" value="Отправить">
 	</form>
 

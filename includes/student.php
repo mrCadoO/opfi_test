@@ -4,13 +4,13 @@ require_once(LIB_PATH.DS.'database.php');
 class Students extends DatabaseObject {
 	
 	protected static $table_name="students";
-	protected static $db_fields = array('first_name', 'last_name', 'group_name','count_truth_answer');
+	protected static $db_fields = array('first_name', 'last_name', 'group_name','assessment');
 	
 	public $id;
 	public $first_name;
 	public $last_name;
 	public $group_name;
-	public $count_truth_answer = 0;
+	public $assessment;
 	public static $pass=false;
 	
 
@@ -100,6 +100,14 @@ class Students extends DatabaseObject {
 		$sql .= " WHERE id=". $database->escape_value($this->id);
 	  $database->query($sql);
 	  return ($database->affected_rows() == 1) ? true : false;
+	}
+
+	public function update_assessment($user_id){
+		global $database;
+		$sql  = "UPDATE ".self::$table_name." SET assessment={$this->assessment}";
+		$sql .= " WHERE id={$user_id}";
+		$database->query($sql);
+		return ($database->affected_rows() == 1) ? true : false;
 	}
 
 	public function delete() {
