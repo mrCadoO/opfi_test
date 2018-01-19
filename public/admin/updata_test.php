@@ -14,7 +14,9 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
   }
 
 	if(isset($_POST['submit'])) {
+
 		$test->question = !empty($_POST['question']) ? $_POST['question'] : $test->question;
+		$test->subject_id = $test->subject_id;
 		$test->answer1  = !empty($_POST['answer1']) ? $_POST['answer1'] : $test->answer1;
 		$test->answer2  = !empty($_POST['answer2']) ? $_POST['answer2'] : $test->answer2;
 		$test->answer3  = !empty($_POST['answer3']) ? $_POST['answer3'] : $test->answer3;
@@ -31,13 +33,15 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 		$test->truth5  = $check[$i]==5 ? "true" : null;
 		$test->truth6  = $check[$i]==6 ? "true" : null;
 	}
-	if($test->update()) {
-     	$session->message("Тест удачно обновлен.");
-    	redirect_to('list_tests.php');
-	} else {
-      	$message = join("<br />", $test->errors);
-		}
+
+	if($test->update()){
+		$session->message('Вопрос успешно обновлен.');
+		redirect_to('manage_test.php');
 	}
+
+
+	
+	} 
 ?>
 
 <?php include_layout_template('admin_header.php'); ?>

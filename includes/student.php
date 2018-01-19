@@ -88,20 +88,6 @@ class Students extends DatabaseObject {
 	  }
 	}
 
-	public function update() {
-	  global $database;
-		$attributes = $this->sanitized_attributes();
-		$attribute_pairs = array();
-		foreach($attributes as $key => $value) {
-		  $attribute_pairs[] = "{$key}='{$value}'";
-		}
-		$sql = "UPDATE ".self::$table_name." SET ";
-		$sql .= join(", ", $attribute_pairs);
-		$sql .= " WHERE id=". $database->escape_value($this->id);
-	  $database->query($sql);
-	  return ($database->affected_rows() == 1) ? true : false;
-	}
-
 	public function update_assessment($user_id){
 		global $database;
 		$sql  = "UPDATE ".self::$table_name." SET assessment={$this->assessment}";
