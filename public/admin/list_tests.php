@@ -90,6 +90,7 @@ $subjects = Subjects::find_name_by_id($current_subject);
 
 		
 	<?php echo "<a href=\"updata_test.php?id={$test->id}\" >Обновка</a>"; ?>
+	<?php echo "<a href=\"delete_test.php?id={$test->id}\" >Удалить</a>"; ?>
 <?php endforeach; ?>
 </ul>
 </form>
