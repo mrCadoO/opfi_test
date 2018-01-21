@@ -36,7 +36,7 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 
 	if($test->update()){
 		$session->message('Вопрос успешно обновлен.');
-		redirect_to('manage_test.php');
+		redirect_to("list_tests.php?subject={$test->subject_id}");
 	}
 
 

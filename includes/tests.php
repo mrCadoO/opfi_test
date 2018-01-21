@@ -139,6 +139,14 @@ class Tests extends DatabaseObject {
 	  return ($database->affected_rows() == 1) ? true : false;
 	}
 
+	public function delete_all_test_by_subject_id($subjec_id){
+		global $database;
+	  $sql = "DELETE FROM ".self::$table_name;
+	  $sql .= " WHERE subject_id=". $database->escape_value($subjec_id);
+	  $database->query($sql);
+	  return ($database->affected_rows() == 1) ? true : false;
+	}
+
 
 	public function form_for_test(){
 	

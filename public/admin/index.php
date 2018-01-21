@@ -7,7 +7,6 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 		<?php echo output_message($message); ?>
 		
 	<ul>
-		<li><a href="new_subject.php">Создать страничку с тестами</a></li>
 		<li><a href="manage_test.php">Управление страничкой с тестами</a></li>
 		<li><a href="logout.php">Выйти</a></li>
 	</ul>

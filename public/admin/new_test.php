@@ -89,12 +89,6 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 	<br/>
 	<br/>
 	<br/>
-	<br/>
-	<br/>
-	<br/>
-	<br/>
-	<br/>
-	<input type="submit" name="sub">
 </form>
 
 

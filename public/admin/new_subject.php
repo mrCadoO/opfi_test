@@ -11,7 +11,7 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 			$subject->group_name = $_POST['group_name'];
 			$session->message('Страничка успешно создана.');
 			$subject->create();
-			redirect_to('index.php');
+			redirect_to("list_tests.php?subject={$subject->id}");
 			} else {
 			$session->message('Заполните поле ввода');
 			redirect_to('new_subject.php');	

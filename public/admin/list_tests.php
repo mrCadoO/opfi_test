@@ -9,10 +9,12 @@ $subjects = Subjects::find_name_by_id($current_subject);
 
 
 <?php include_layout_template('admin_header.php'); ?>	
-<a href="index.php">&laquo; Назад</a>
+<a href="manage_test.php">&laquo; Назад</a>
 
 <?php foreach ($subjects as $subject): ?>
 <h2>Тесты: <?php echo $subject->name; ?> </h2>
+<a href="updata_subject.php?id=<?php echo $subject->id; ?>">Обновка</a><br>
+<a href="delete_subject.php?id=<?php echo $subject->id; ?>">Удалить все содержимое данного теста.</a>
 <?php endforeach; ?>
 
 <?php echo output_message($message); ?>
