@@ -134,8 +134,8 @@ class Session{
 	}
 
 	public function user_id(){
-		$_SESSION['user_id'] = $_GET['user_id'];
-		return $_SESSION['user_id'];
+		$_SESSION['userId'] = $_GET['user_id'];
+		return $_SESSION['userId'];
 	}
 
 

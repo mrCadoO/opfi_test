@@ -4,13 +4,14 @@ require_once(LIB_PATH.DS.'database.php');
 class Students extends DatabaseObject {
 	
 	protected static $table_name="students";
-	protected static $db_fields = array('first_name', 'last_name', 'group_name','assessment');
+	protected static $db_fields = array('first_name', 'last_name', 'group_name', 'assessment', 'test_name');
 	
 	public $id;
 	public $first_name;
 	public $last_name;
 	public $group_name;
 	public $assessment;
+	public $test_name;
 	public static $pass=false;
 	
 
@@ -23,6 +24,8 @@ class Students extends DatabaseObject {
     $result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE id={$id} LIMIT 1");
 		return !empty($result_array) ? array_shift($result_array) : false;
   }
+
+
   
   public static function find_by_sql($sql="") {
     global $database;
@@ -90,7 +93,15 @@ class Students extends DatabaseObject {
 
 	public function update_assessment($user_id){
 		global $database;
-		$sql  = "UPDATE ".self::$table_name." SET assessment={$this->assessment}";
+		$sql  = "UPDATE ".self::$table_name." SET assessment='{$this->assessment}'";
+		$sql .= " WHERE id={$user_id}";
+		$database->query($sql);
+		return ($database->affected_rows() == 1) ? true : false;
+	}
+
+	public function update_test_name($user_id){
+		global $database;
+		$sql  = "UPDATE ".self::$table_name." SET test_name='{$this->test_name}'";
 		$sql .= " WHERE id={$user_id}";
 		$database->query($sql);
 		return ($database->affected_rows() == 1) ? true : false;

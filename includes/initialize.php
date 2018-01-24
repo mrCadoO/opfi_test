@@ -22,6 +22,7 @@ require_once(LIB_PATH.DS.'tests.php');
 require_once(LIB_PATH.DS.'student.php');
 require_once(LIB_PATH.DS.'pagination.php');
 require_once(LIB_PATH.DS.'subject.php');
+require_once(LIB_PATH.DS.'start_student.php');
 
 
 ?>

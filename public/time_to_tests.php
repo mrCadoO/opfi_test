@@ -7,10 +7,21 @@
  $total_count = Tests::count_all($current_subject);
   if($_GET['page'] > $total_count){
     redirect_to('started_test_page.php');
-  }
+  } 
 
-  $user_id = $_SESSION['user_id'];
+
+  $user_id = $_SESSION['userId'];
   $student = new Students();
+
+  
+  if($_GET['page'] == 1){
+    $subjects = Subjects::find_one_element($current_subject);
+     foreach ($subjects as $subject):
+      $student->test_name = $subject->name;
+       $student->update_test_name($user_id);
+      endforeach;
+   
+  }
   $student->assessment = $_SESSION['assesment'];
   $student->update_assessment($user_id);
   
@@ -29,7 +40,7 @@
 
 <?php include_layout_template('header.php');
  if($_SESSION['NumPage'] != $pagination->current_page){
-    redirect_to('index_test_page.php');
+    redirect_to("started_test_page.php");
   }
  ?>
 <?php echo output_message($message); ?>

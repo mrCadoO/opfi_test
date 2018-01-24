@@ -1,34 +1,47 @@
 <?php
 require_once(LIB_PATH.DS.'database.php');
 
-class Subjects extends DatabaseObject {
+class Start_student extends DatabaseObject {
 	
-	protected static $table_name="subject";
-	protected static $db_fields = array('name', 'group_name');
+	protected static $table_name="start_student";
+	protected static $db_fields = array('first_name', 'last_name', 'group_name', 'private_number');
 	
 	public $id;
-	public $name;
+	public $first_name;
+	public $last_name;
 	public $group_name;
+	public $private_number;
+
 	
+
 	
 	public static function find_all() {
 		return self::find_by_sql("SELECT * FROM ".self::$table_name);
   }
 
-  public static function find_one_element($id) {
-		return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE id={$id} LIMIT 1");
-  }
 
-  public static function find_name_by_id($id){
-  	return self::find_by_sql("SELECT name FROM ".self::$table_name." WHERE id={$id} LIMIT 1");
-  }
-  
+   public static function find_tests_for_subject($current_subject_id){
+		return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE subject_id={$current_subject_id}");
+   }
+
+
   public static function find_by_id($id=0) {
     $result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE id={$id} LIMIT 1");
 		return !empty($result_array) ? array_shift($result_array) : false;
   }
 
-     
+
+  public static function count_all($id){
+  		global $database;
+  		$sql  = "SELECT COUNT(*) FROM " .self::$table_name;
+  		$sql .= " WHERE subject_id='{$id}'";
+  		$result_set = $database->query($sql);
+  		$row = $database->fetch_array($result_set);
+  			return array_shift($row);
+  	}
+
+
+  
   public static function find_by_sql($sql="") {
     global $database;
     $result_set = $database->query($sql);
@@ -73,10 +86,6 @@ class Subjects extends DatabaseObject {
 	  return $clean_attributes;
 	}
 	
-	public function save() {
-	  // A new record won't have an id yet.
-	  return isset($this->id) ? $this->update() : $this->create();
-	}
 	
 	public function create() {
 		global $database;
@@ -117,9 +126,7 @@ class Subjects extends DatabaseObject {
 	  return ($database->affected_rows() == 1) ? true : false;
 	}
 
-
 	
-
 }
 
 ?>

@@ -7,8 +7,11 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 		<?php echo output_message($message); ?>
 		
 	<ul>
-		<li><a href="manage_test.php">Управление страничкой с тестами</a></li>
-		<li><a href="logout.php">Выйти</a></li>
+		<li><a href="manage_test.php">Управление страничкой с тестами</a></li><br/>
+		<li><a href="manage_student.php">Студенты</a></li><br/>
+		<li><a href="logfile.php">Кто заходил как Администратор</a></li><br/>
+		<li><a href="logout.php">Выйти</a></li><br/>
+
 	</ul>
 	</div>
 

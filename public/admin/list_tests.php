@@ -3,7 +3,7 @@ require_once('../../includes/initialize.php');
 if(!$session->is_loged_in()){ redirect_to("login.php"); }
 find_selected_test(); 
 $tests = Tests::find_tests_for_subject($current_subject); // if(!cuurent ...)
-$subjects = Subjects::find_name_by_id($current_subject);
+$subjects = Subjects::find_one_element($current_subject);
  ?>
 
 
