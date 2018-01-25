@@ -18,10 +18,6 @@ class Subjects extends DatabaseObject {
   public static function find_one_element($id) {
 		return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE id={$id} LIMIT 1");
   }
-
-  public static function find_name_by_id($id){
-  	return self::find_by_sql("SELECT name FROM ".self::$table_name." WHERE id={$id} LIMIT 1");
-  }
   
   public static function find_by_id($id=0) {
     $result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE id={$id} LIMIT 1");

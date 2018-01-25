@@ -9,8 +9,9 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 		$new_stud->first_name = $_POST['first_name'];
 		$new_stud->last_name = $_POST['last_name'];
 		$new_stud->group_name = $_POST['group_name'];
-		$new_stud->private_number = $_POST['private_number'];
-	if(empty($new_stud->first_name) || empty($new_stud->last_name) || empty($new_stud->group_name) || empty($new_stud->private_number)){
+		$new_stud->login = $_POST['login'];
+		$new_stud->hashed_password = password_encrypt($_POST['password']);
+	if(empty($new_stud->first_name) || empty($new_stud->last_name) || empty($new_stud->group_name) || empty($new_stud->login) || empty($new_stud->hashed_password)){
 		$session->message('Заполните все поля');
 		redirect_to('create_student.php');
 	}
@@ -25,11 +26,15 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 ?>
 
 
-
 <?php include_layout_template('admin_header.php'); ?>
-<?php echo output_message($message); ?>
-		
+<?php echo output_message($message); ?>	
 <form action="create_student.php" method="post">
+
+	<p>Введите login</p>
+	<input type="text" name="login" size="50" /><br /><br />
+
+	<p>Введите пароль</p>
+	<input type="text" name="password" size="50" /><br /><br />
 	
 	<p>Введите Имя</p>
 	<input type="text" name="first_name" size="50" /><br /><br />
@@ -39,9 +44,6 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 
 	<p>Введите название группы</p>
 	<input type="text" name="group_name" size="50" /><br /><br />
-
-	<p>Введите номер зачотной книжки</p>
-	<input type="text" name="private_number" size="50" /><br /><br />
 
 	<input type="submit" name="submit">
 </form>

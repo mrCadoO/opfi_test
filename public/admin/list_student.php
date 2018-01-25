@@ -15,7 +15,6 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 		<th style="text-align: left; width: 200px;">Имя</th>
 		<th style="text-align: left; width: 200px;">Фамилия</th>
 		<th style="text-align: left; width: 200px;">Группа</th>
-		<th style="text-align: left; width: 200px;">Номер зачетки</th>
 		<th style="text-align: left; width: 200px;">Изменить/Удалить</th>
 	</tr>
 <?php foreach ($studs as $stud): ?>
@@ -23,7 +22,6 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 		<td><?php echo $stud->first_name;?></td>
 		<td><?php echo $stud->last_name;?></td>
 		<td><?php echo $stud->group_name;?></td>
-		<td><?php echo $stud->private_number;?></td>
 		<td><a href="updata_student.php?id=<?php echo $stud->id; ?>">Изменить</a>/<a href="delete_student.php?id=<?php echo $stud->id; ?>">Удалить</a></td>
 	</tr>
 <?php endforeach; ?>

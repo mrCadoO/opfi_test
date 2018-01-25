@@ -5,6 +5,7 @@ class Session{
 	public $user_id;
 	public $message;
 	public $number_of_correct_answers;
+	public $id;
 
 
 
@@ -85,24 +86,7 @@ class Session{
 		}
 	}
 
-	public function access_true(){
-		return $_SESSION['pass'] = true;
-	}
-
-	public function access_false(){
-		return $_SESSION['pass'] = false;
-	}
-
-	public function access_permission(){
-		return $_SESSION['pass'];
-	}
-
-
-
-
-
 	public function num_page(){
-	
 		return $_SESSION['NumPage']++;
 	}
 
@@ -111,36 +95,6 @@ class Session{
 			echo $_SESSION['NumPage'];
 		}
 	}
-
-	
-
-
-
-
-
-
-
-
-	public function low_access_true(){
-		$_SESSION['accessLOW'] = true;
-	}
-
-	public function low_access_false(){
-		$_SESSION['accessLOW'] = false;
-	}
-
-	public function is_low_access(){
-		return $_SESSION['accessLOW'];
-	}
-
-	public function user_id(){
-		$_SESSION['userId'] = $_GET['user_id'];
-		return $_SESSION['userId'];
-	}
-
-
-
-
 
 }
 

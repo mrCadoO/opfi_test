@@ -4,16 +4,29 @@ require_once(LIB_PATH.DS.'database.php');
 class Start_student extends DatabaseObject {
 	
 	protected static $table_name="start_student";
-	protected static $db_fields = array('first_name', 'last_name', 'group_name', 'private_number');
+	protected static $db_fields = array('first_name', 'last_name', 'group_name', 'login', 'hashed_password');
 	
 	public $id;
 	public $first_name;
 	public $last_name;
 	public $group_name;
-	public $private_number;
+	public $login;
+	public $hashed_password;
 
 	
-
+	function find_user_by_login($login) { 
+		global $database;
+		$safe_username = $database->escape_value($login);
+		$sql  = "SELECT * FROM ".self::$table_name;
+		$sql .= " WHERE login = '{$safe_username}'";
+		$sql .= " LIMIT 1";
+		$user_set = $database->query($sql);
+		if($user = mysqli_fetch_assoc($user_set)){
+			return $user;
+		} else {
+			return null;
+		}	  
+	}
 	
 	public static function find_all() {
 		return self::find_by_sql("SELECT * FROM ".self::$table_name);
@@ -125,6 +138,20 @@ class Start_student extends DatabaseObject {
 	  $database->query($sql);
 	  return ($database->affected_rows() == 1) ? true : false;
 	}
+
+
+	public function attempt_login($login, $password) {
+     	$user = $this->find_user_by_login($login);
+     	if($user){
+      		if(password_check($password, $user["hashed_password"])){
+       			return $user;
+      		}else {
+       			return false;
+      		}
+      	}else {
+        	return false;
+      	}
+   }
 
 	
 }

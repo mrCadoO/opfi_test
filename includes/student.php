@@ -107,6 +107,7 @@ class Students extends DatabaseObject {
 		return ($database->affected_rows() == 1) ? true : false;
 	}
 
+
 	public function delete() {
 		global $database;
 	  $sql = "DELETE FROM ".self::$table_name;

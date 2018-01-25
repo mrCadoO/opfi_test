@@ -1,16 +1,16 @@
 <?php require_once('../includes/initialize.php'); ?>
 <?php 
-  
 
   find_selected_test();
 
+
  $total_count = Tests::count_all($current_subject);
   if($_GET['page'] > $total_count){
-    redirect_to('started_test_page.php');
+    redirect_to("index.php");
   } 
 
 
-  $user_id = $_SESSION['userId'];
+  $user_id = $_SESSION['user_login'];
   $student = new Students();
 
   
@@ -18,10 +18,13 @@
     $subjects = Subjects::find_one_element($current_subject);
      foreach ($subjects as $subject):
       $student->test_name = $subject->name;
-       $student->update_test_name($user_id);
       endforeach;
-   
+       $student->update_test_name($user_id);
   }
+
+
+
+
   $student->assessment = $_SESSION['assesment'];
   $student->update_assessment($user_id);
   

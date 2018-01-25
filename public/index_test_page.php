@@ -1,11 +1,10 @@
 <?php require_once('../includes/initialize.php'); ?>
 	
-<?php if(!$session->access_permission()){redirect_to("started_test_page.php");}
-?>
+
 <?php include_layout_template('header.php'); ?>
 <?php echo output_message($message); 
+ $user_id = $_SESSION['user_login'];
  $session->annulment();
- $user_id = $session->user_id();
 ?>
 
 

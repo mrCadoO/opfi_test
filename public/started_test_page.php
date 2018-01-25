@@ -1,25 +1,21 @@
 <?php require_once('../includes/initialize.php'); ?>
 <?php 
-	if(isset($_POST['submit'])){
-		$student = new Students();
-		$student->first_name = $_POST['first_name'];
-		$student->last_name = $_POST['last_name'];
-		$student->group_name = $_POST['group_name'];
-		$student->assessment = 0;
-		$student->assessment = "";
-		if(empty($student->first_name) || empty($student->last_name) || empty($student->group_name)){
-			$session->message("Необходимо заполнить все поля.");
-			redirect_to("started_test_page.php");
-		} else {
-			if($student->create()){
-				$session->access_true();
-				$session->annulment();
-				redirect_to("index_test_page.php?user_id={$student->id}");
-			} else{
-				redirect_to("started_test_page.php");
-			}
-		}
 
+	if(isset($_POST['submit'])){
+		$student = new Start_student();
+		$student->login = $_POST['login'];
+		$student->hashed_password = $_POST['password'];
+
+		$found_user = $student->attempt_login($student->login, $student->hashed_password);
+		$_SESSION["user_login"] = $found_user["id"];
+		$_SESSION["username"] = $found_user["login"];
+		if($found_user){
+			$session->message("All okay");
+		redirect_to("index_test_page.php?user_id={$_SESSION['user_login']}");
+	} else {
+		$session->message("All BAD");
+		redirect_to("started_test_page.php");
+	}
 	}
 
 
@@ -31,14 +27,12 @@
 
 
 <form action="started_test_page.php" method="POST">
-	<p>Введите Имя</p>
-	<input type="text" name="first_name" />
+	<p>Введите LOGIN</p>
+	<input type="text" name="login" />
 
-	<p>ведите фамилию</p>
-	<input type="text" name="last_name" />
+	<p>ведите PASSWORD</p>
+	<input type="text" name="password" /> <br><br><br><br>
 
-	<p>Введите название группы</p>
-	<input type="text" name="group_name" /><br /><br />
 	<input type="submit" name="submit" value="Отправить">
 </form>
 
