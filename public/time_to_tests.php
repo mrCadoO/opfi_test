@@ -1,60 +1,41 @@
 <?php require_once('../includes/initialize.php'); ?>
-<?php 
-
+<?php confirm_logged_in(); 
   find_selected_test();
-
 
  $total_count = Tests::count_all($current_subject);
   if($_GET['page'] > $total_count){
     redirect_to("index.php");
   } 
 
-
-  $user_id = $_SESSION['user_login'];
-  $student = new Students();
-
-  
-  if($_GET['page'] == 1){
-    $subjects = Subjects::find_one_element($current_subject);
-     foreach ($subjects as $subject):
-      $student->test_name = $subject->name;
-      endforeach;
-       $student->update_test_name($user_id);
-  }
-
-
-
-
-  $student->assessment = $_SESSION['assesment'];
+ 
+  $user_id = $_SESSION['Id'];
+  $student = Students::find_by_id($user_id);
+  $student->assessment = $_SESSION['assessment'];
   $student->update_assessment($user_id);
   
+
+  //PAGINATION
 	$page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
 	$per_page = 1;
-	
 	$pagination = new Pagination($page, $per_page);
-
   $sql  = "SELECT * FROM tests ";
 	$sql .= "WHERE subject_id='{$current_subject}' ";
 	$sql .= "LIMIT {$per_page} ";
 	$sql .= "OFFSET {$pagination->offset()}";
 	$tests = Tests::find_by_sql($sql);
- ?>
-	
-
-<?php include_layout_template('header.php');
- if($_SESSION['NumPage'] != $pagination->current_page){
+  if($_SESSION['NumPage'] != $pagination->current_page){
     redirect_to("started_test_page.php");
   }
  ?>
+	
+
+<?php include_layout_template('header.php'); ?>
 <?php echo output_message($message); ?>
 
 
 <?php $session->output_increase_num(); echo "<br>"; 
  echo $session->num_page_out() . "<br>";
 ?>
-
-
-<?php echo $_SESSION['pass'] ? 'true' : 'false'; ?>
 
 
 <?php foreach ($tests as $test): 	 

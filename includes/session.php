@@ -4,7 +4,6 @@ class Session{
 	private $loged_in=false;
 	public $user_id;
 	public $message;
-	public $number_of_correct_answers;
 	public $id;
 
 
@@ -51,13 +50,13 @@ class Session{
 	}
 
 	public function increase(){
-		return $_SESSION['assesment']++;
+		return $_SESSION['assessment']++;
 	}
 
 	
 	public function output_increase_num(){
-		if(!empty($_SESSION['assesment'])){
-			echo $_SESSION['assesment'];
+		if(!empty($_SESSION['assessment'])){
+			echo $_SESSION['assessment'];
 		} else {
 			 echo 0;
 		}
@@ -66,7 +65,7 @@ class Session{
 
 	public function annulment(){
 		$_SESSION['NumPage'] = 1;
-		$_SESSION['assesment'] = 0;
+		$_SESSION['assessment'] = 0;
 	}
 
 

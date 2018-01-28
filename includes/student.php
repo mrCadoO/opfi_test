@@ -91,10 +91,10 @@ class Students extends DatabaseObject {
 	  }
 	}
 
-	public function update_assessment($user_id){
+	public function update_assessment($id){
 		global $database;
 		$sql  = "UPDATE ".self::$table_name." SET assessment='{$this->assessment}'";
-		$sql .= " WHERE id={$user_id}";
+		$sql .= " WHERE id={$id}";
 		$database->query($sql);
 		return ($database->affected_rows() == 1) ? true : false;
 	}
@@ -117,10 +117,6 @@ class Students extends DatabaseObject {
 	  return ($database->affected_rows() == 1) ? true : false;
 	}
 
-
-	public function pass(){
-		self::$pass = true;
-	}
 
 }
 

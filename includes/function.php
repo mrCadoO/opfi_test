@@ -91,7 +91,7 @@ function log_action($action, $message="") {
     echo "<ul type=\"none\">";
     foreach ($results as $result):
       $output  = "<li>";
-      $output .= "<a href=\"time_to_tests.php?page=1&subject=";
+      $output .= "<a href=\"test_description.php?subject=";
       $output .= urlencode($result->id);
       $output .= "&user_id={$user_id}";
       $output .= "\"> ";
@@ -141,7 +141,7 @@ function log_action($action, $message="") {
   
   function confirm_logged_in() {
     if (!logged_in()){
-  redirect_to("login.php");
+  redirect_to("started_test_page.php");
 }
 }
 
