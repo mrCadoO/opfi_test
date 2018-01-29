@@ -20,19 +20,24 @@
 ?>
 
 
-
-
-
-
-
 <?php include_layout_template('header.php'); ?>
 <?php echo output_message($message); ?>
 
-<p>Тема :</p>
+<?php
+ 	$subj = Subjects::find_by_id($_GET['subject']);
+ 	echo "Тема: ". $subj->name . "<br><br><br><br>";
+
+ 	$info = Description_test::find_by_test_id($_GET['subject']);
+	if(isset($info->description)){
+		echo "Описание: ". $info->description . "<br><br>";
+	} else {
+		echo "Описание: "."Информация отстствует."."<br><br>";
+	}
+ ?>
 
 
 
-<p>Описание :</p>
+	
 
 
 <form action="test_description.php?subject=<?php echo $_GET['subject'];?>&user_id=<?php echo $_GET['user_id'];?>" method="POST">

@@ -14,6 +14,7 @@ $subjects = Subjects::find_one_element($current_subject);
 <?php foreach ($subjects as $subject): ?>
 <h2>Тесты: <?php echo $subject->name; ?> </h2>
 <a href="updata_subject.php?id=<?php echo $subject->id; ?>">Обновка</a><br>
+<a href="description_test.php?test_id=<?php echo $subject->id; ?>">Описание теста</a><br>
 <a href="delete_subject.php?id=<?php echo $subject->id; ?>">Удалить все содержимое данного теста.</a>
 <?php endforeach; ?>
 
