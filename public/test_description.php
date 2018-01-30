@@ -36,10 +36,6 @@
  ?>
 
 
-
-	
-
-
 <form action="test_description.php?subject=<?php echo $_GET['subject'];?>&user_id=<?php echo $_GET['user_id'];?>" method="POST">
 	
 	<input type="submit" name="submit" value="Начать тестирование">
