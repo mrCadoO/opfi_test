@@ -2,7 +2,7 @@
 <?php confirm_logged_in(); 
   find_selected_test();
 
- $total_count = Tests::count_all($current_subject);
+ $total_count = Tests::counter_selected_tests($current_subject);
   if($_GET['page'] > $total_count){
     redirect_to("index.php");
   } 
@@ -19,10 +19,11 @@
 	$per_page = 1;
 	$pagination = new Pagination($page, $per_page);
   $sql  = "SELECT * FROM tests ";
-	$sql .= "WHERE subject_id='{$current_subject}' ";
+	$sql .= "WHERE subject_id='{$current_subject}' AND visible=1 ";
 	$sql .= "LIMIT {$per_page} ";
 	$sql .= "OFFSET {$pagination->offset()}";
 	$tests = Tests::find_by_sql($sql);
+
   if($_SESSION['NumPage'] != $pagination->current_page){
     redirect_to("started_test_page.php");
   }

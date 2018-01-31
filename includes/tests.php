@@ -4,7 +4,7 @@ require_once(LIB_PATH.DS.'database.php');
 class Tests extends DatabaseObject {
 	
 	protected static $table_name="tests";
-	protected static $db_fields = array('question', 'subject_id', 'answer1','answer2', 'answer3', 'answer4', 'answer5', 'answer6', 'truth1', 'truth2', 'truth3', 'truth4', 'truth5', 'truth6');
+	protected static $db_fields = array('question', 'subject_id', 'answer1','answer2', 'answer3', 'answer4', 'answer5', 'answer6', 'truth1', 'truth2', 'truth3', 'truth4', 'truth5', 'truth6', 'visible');
 	
 	public $id;
 	public $question;
@@ -21,6 +21,7 @@ class Tests extends DatabaseObject {
 	public $truth4;
 	public $truth5;
 	public $truth6;	
+	public $visible;	
 	
 
 	
@@ -44,6 +45,16 @@ class Tests extends DatabaseObject {
   		global $database;
   		$sql  = "SELECT COUNT(*) FROM " .self::$table_name;
   		$sql .= " WHERE subject_id='{$id}'";
+  		$result_set = $database->query($sql);
+  		$row = $database->fetch_array($result_set);
+  			return array_shift($row);
+  	}
+
+  	public static function counter_selected_tests($id){
+  		global $database;
+  		$sql  = "SELECT COUNT(*) FROM " .self::$table_name;
+  		$sql .= " WHERE subject_id='{$id}'";
+  		$sql .= " AND visible=1";
   		$result_set = $database->query($sql);
   		$row = $database->fetch_array($result_set);
   			return array_shift($row);

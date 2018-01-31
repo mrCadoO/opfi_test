@@ -88,12 +88,22 @@ $subjects = Subjects::find_one_element($current_subject);
 					echo "<input type=\"radio\" name=\"\" disabled>"; }
 				} ?>
 			</li>	
+			<li>
+				<br>Статус вопроса <br> <?php 
+					if($test->visible == 1) { 
+					echo "Отображен <input type=\"radio\" name=\"\" disabled checked ><br>Не отображен <input type=\"radio\" name=\"\" disabled ><br>"; 
+				} else {
+				echo "Отображен <input type=\"radio\" name=\"\" disabled ><br>Не отображен <input type=\"radio\" name=\"\" disabled checked ><br>";  }
+				?>
+
+			</li>
 		</ul>
 	</li><br />
 
 		
 	<?php echo "<a href=\"updata_test.php?id={$test->id}\" >Обновка</a>"; ?>
 	<?php echo "<a href=\"delete_test.php?id={$test->id}\" >Удалить</a>"; ?>
+	<br><br><br><br>
 <?php endforeach; ?>
 </ul>
 </form>
