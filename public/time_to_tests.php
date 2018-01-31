@@ -2,17 +2,15 @@
 <?php confirm_logged_in(); 
   find_selected_test();
 
+ $user_id = $_SESSION['Id'];
+ $student = Students::find_by_id($user_id);
+ $student->assessment = $_SESSION['assessment'];
+ $student->update_assessment($user_id);
+
  $total_count = Tests::counter_selected_tests($current_subject);
   if($_GET['page'] > $total_count){
     redirect_to("index.php");
   } 
-
- 
-  $user_id = $_SESSION['Id'];
-  $student = Students::find_by_id($user_id);
-  $student->assessment = $_SESSION['assessment'];
-  $student->update_assessment($user_id);
-  
 
   //PAGINATION
 	$page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
