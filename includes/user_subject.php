@@ -1,55 +1,27 @@
 <?php
 require_once(LIB_PATH.DS.'database.php');
 
-class Tests extends DatabaseObject {
+class new_Subject extends DatabaseObject {
 	
-	protected static $table_name="tests";
-	protected static $db_fields = array('question', 'subject_id', 'answer1','answer2', 'answer3', 'answer4', 'answer5', 'answer6', 'truth1', 'truth2', 'truth3', 'truth4', 'truth5', 'truth6', 'visible');
+	protected static $table_name="subject_for_user";
+	protected static $db_fields = array('name');
 	
 	public $id;
-	public $question;
-	public $subject_id;
-	public $answer1;
-	public $answer2;
-	public $answer3;
-	public $answer4;
-	public $answer5;
-	public $answer6;
-	public $truth1;
-	public $truth2;
-	public $truth3;
-	public $truth4;
-	public $truth5;
-	public $truth6;	
-	public $visible;	
+	public $name;
 	
-
 	
 	public static function find_all() {
 		return self::find_by_sql("SELECT * FROM ".self::$table_name);
   }
 
-
-   public static function find_tests_for_subject($current_subject_id){
-		return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE subject_id={$current_subject_id}");
-   }
-
-
+  
+  
   public static function find_by_id($id=0) {
     $result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE id={$id} LIMIT 1");
 		return !empty($result_array) ? array_shift($result_array) : false;
   }
 
-
-  public static function count_all($id){
-  		global $database;
-  		$sql  = "SELECT COUNT(*) FROM " .self::$table_name;
-  		$sql .= " WHERE subject_id='{$id}'";
-  		$result_set = $database->query($sql);
-  		$row = $database->fetch_array($result_set);
-  			return array_shift($row);
-  	}
-  
+     
   public static function find_by_sql($sql="") {
     global $database;
     $result_set = $database->query($sql);
@@ -138,57 +110,8 @@ class Tests extends DatabaseObject {
 	  return ($database->affected_rows() == 1) ? true : false;
 	}
 
-	public function delete_all_test_by_subject_id($subjec_id){
-		global $database;
-	  $sql = "DELETE FROM ".self::$table_name;
-	  $sql .= " WHERE subject_id=". $database->escape_value($subjec_id);
-	  $database->query($sql);
-	  return ($database->affected_rows() == 1) ? true : false;
-	}
 
-
-	public function form_for_test(){
 	
-		echo "<form method=\"post\">";
-		echo $this->question . "<br />";
-	 	if(!empty($this->answer1)){
-	 		echo "<input type=\"radio\" name=\"answer[]\" value=\"1\" >"; 
-	  		echo $this->answer1;
-	  		echo "<br />";
-	  	}
-		if(!empty($this->answer2)){
-			echo "<input type=\"radio\" name=\"answer[]\" value=\"2\" >"; 
-			echo $this->answer2;
-			echo "<br />";
-		}
-
-		if(!empty($this->answer3)){
-			echo "<input type=\"radio\" name=\"answer[]\" value=\"3\" >";
-			echo $this->answer3; 
-			echo "<br />";
-		}
-
-		if(!empty($this->answer4)){
-			echo "<input type=\"radio\" name=\"answer[]\" value=\"4\" >";
-			echo $this->answer4;
-			echo "<br />";
-		}
-
-		if(!empty($this->answer5)){
-			echo "<input type=\"radio\" name=\"answer[]\" value=\"5\" >";
-			echo $this->answer5;
-			echo "<br />";
-		}
-
-		if(!empty($this->answer6)){
-			echo "<input type=\"radio\" name=\"answer[]\" value=\"6\" >";
-			echo $this->answer6; 
-		}
-		echo "<br/><br/>";
-		echo "<input type=\"submit\" name=\"submit\" value=\"Готово\">";
-		echo "</form>";
-	
-}
 
 }
 

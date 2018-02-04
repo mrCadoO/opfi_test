@@ -25,6 +25,8 @@ require_once(LIB_PATH.DS.'subject.php');
 require_once(LIB_PATH.DS.'start_student.php');
 require_once(LIB_PATH.DS.'description.php');
 require_once(LIB_PATH.DS.'group.php');
+require_once(LIB_PATH.DS.'select_test.php');
+require_once(LIB_PATH.DS.'user_subject.php');
 
 
 ?>

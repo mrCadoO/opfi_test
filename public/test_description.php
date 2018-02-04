@@ -6,7 +6,7 @@
 	if(isset($_POST['submit'])){
 		$new_stud = new Students();
 		$student = Start_student::find_by_id($_GET['user_id']); 
-		$test = Subjects::find_by_id($_GET['subject']); 
+		$test = new_Subject::find_by_id($_GET['subject']); 
 
 		$new_stud->first_name = $student->first_name;
 		$new_stud->last_name  = $student->last_name;
@@ -24,7 +24,7 @@
 <?php echo output_message($message); ?>
 
 <?php
- 	$subj = Subjects::find_by_id($_GET['subject']);
+ 	$subj = new_Subject::find_by_id($_GET['subject']);
  	echo "Тема: ". $subj->name . "<br><br><br><br>";
 
  	$info = Description_test::find_by_test_id($_GET['subject']);

@@ -1,10 +1,10 @@
 <?php
 require_once(LIB_PATH.DS.'database.php');
 
-class Tests extends DatabaseObject {
+class Select extends DatabaseObject {
 	
-	protected static $table_name="tests";
-	protected static $db_fields = array('question', 'subject_id', 'answer1','answer2', 'answer3', 'answer4', 'answer5', 'answer6', 'truth1', 'truth2', 'truth3', 'truth4', 'truth5', 'truth6', 'visible');
+	protected static $table_name="selected_test";
+	protected static $db_fields = array('question', 'subject_id', 'answer1','answer2', 'answer3', 'answer4', 'answer5', 'answer6', 'truth1', 'truth2', 'truth3', 'truth4', 'truth5', 'truth6', 'test_name');
 	
 	public $id;
 	public $question;
@@ -21,27 +21,26 @@ class Tests extends DatabaseObject {
 	public $truth4;
 	public $truth5;
 	public $truth6;	
-	public $visible;	
+	public $test_name;	
 	
-
+	
 	
 	public static function find_all() {
 		return self::find_by_sql("SELECT * FROM ".self::$table_name);
   }
 
-
-   public static function find_tests_for_subject($current_subject_id){
-		return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE subject_id={$current_subject_id}");
-   }
-
-
+  
   public static function find_by_id($id=0) {
     $result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE id={$id} LIMIT 1");
 		return !empty($result_array) ? array_shift($result_array) : false;
   }
 
+   public static function find_by_subject_id($id=0) {
+   		return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE subject_id={$id}");
+		
+  }
 
-  public static function count_all($id){
+    public static function count_all($id){
   		global $database;
   		$sql  = "SELECT COUNT(*) FROM " .self::$table_name;
   		$sql .= " WHERE subject_id='{$id}'";
@@ -49,7 +48,8 @@ class Tests extends DatabaseObject {
   		$row = $database->fetch_array($result_set);
   			return array_shift($row);
   	}
-  
+
+     
   public static function find_by_sql($sql="") {
     global $database;
     $result_set = $database->query($sql);
@@ -189,6 +189,9 @@ class Tests extends DatabaseObject {
 		echo "</form>";
 	
 }
+
+
+	
 
 }
 

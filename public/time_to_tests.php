@@ -7,7 +7,7 @@
  $student->assessment = $_SESSION['assessment'];
  $student->update_assessment($user_id);
 
- $total_count = Tests::counter_selected_tests($current_subject);
+ $total_count = Select::count_all($current_subject);
   if($_GET['page'] > $total_count){
     redirect_to("index.php");
   } 
@@ -16,11 +16,11 @@
 	$page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
 	$per_page = 1;
 	$pagination = new Pagination($page, $per_page);
-  $sql  = "SELECT * FROM tests ";
-	$sql .= "WHERE subject_id='{$current_subject}' AND visible=1 ";
+  $sql  = "SELECT * FROM selected_test ";
+	$sql .= "WHERE subject_id='{$current_subject}' ";
 	$sql .= "LIMIT {$per_page} ";
 	$sql .= "OFFSET {$pagination->offset()}";
-	$tests = Tests::find_by_sql($sql);
+	$tests = Select::find_by_sql($sql);
 
   if($_SESSION['NumPage'] != $pagination->current_page){
     redirect_to("started_test_page.php");
@@ -30,11 +30,9 @@
 
 <?php include_layout_template('header.php'); ?>
 <?php echo output_message($message); ?>
+<?php $session->output_increase_num(); echo "<br>"; ?>
+<?php echo $session->num_page_out() . "<br>"; ?>
 
-
-<?php $session->output_increase_num(); echo "<br>"; 
- echo $session->num_page_out() . "<br>";
-?>
 
 
 <?php foreach ($tests as $test): 	 

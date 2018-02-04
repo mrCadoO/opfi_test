@@ -8,7 +8,7 @@ function strip_zeros_from_date( $marked_string="" ) {
   return $cleaned_string;
 }
 
-function redirect_to( $location = NULL ) {
+function redirect_to($location = NULL) {
   if($location != NULL) {
     header("Location: {$location}");
     exit;
@@ -87,7 +87,7 @@ function log_action($action, $message="") {
 
 
   function list_test_for_user($user_id){
-    $results = Subjects::find_all();
+    $results = new_Subject::find_all();
     echo "<ul type=\"none\">";
     foreach ($results as $result):
       $output  = "<li>";
