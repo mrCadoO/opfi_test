@@ -9,8 +9,10 @@
 
 
 <?php
+  $stud = Start_student::find_by_id($_SESSION['user_login']);
+
   //find all test name
-	$results = new_Subject::find_all();
+	$results = new_Subject::find_by_group_name($stud->group_name);
   if($results){
     echo "<ul type=\"none\">";
     foreach ($results as $result){

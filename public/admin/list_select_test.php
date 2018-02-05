@@ -15,6 +15,9 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); }
     echo "<ul type=\"none\">";
     foreach ($results as $result):
       $output  = "<li>";
+      $output .= "Группа: ";
+      $output .= htmlentities($result->group_name);
+      $output .= "<br>";
       $output .= "<a href=\"select_test.php?subject=";
       $output .= urlencode($result->id);
       $output .= "\"> ";
@@ -29,7 +32,7 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); }
         $output .= htmlentities($test->question);
         $output .= "</a></li></ul>";
       endforeach;
-      $output .="</li>";
+      $output .="</li><br><br>";
       echo $output;
     endforeach;
     echo "</ul>";

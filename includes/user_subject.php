@@ -4,21 +4,26 @@ require_once(LIB_PATH.DS.'database.php');
 class new_Subject extends DatabaseObject {
 	
 	protected static $table_name="subject_for_user";
-	protected static $db_fields = array('name');
+	protected static $db_fields = array('name', 'group_name');
 	
 	public $id;
 	public $name;
+	public $group_name;
 	
 	
 	public static function find_all() {
 		return self::find_by_sql("SELECT * FROM ".self::$table_name);
-  }
-
+  	}
   
   
   public static function find_by_id($id=0) {
     $result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE id={$id} LIMIT 1");
 		return !empty($result_array) ? array_shift($result_array) : false;
+  }
+
+
+  public static function find_by_group_name($name="") {
+   return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE group_name='{$name}'");
   }
 
      

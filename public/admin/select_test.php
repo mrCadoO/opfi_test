@@ -40,7 +40,9 @@ include_layout_template('admin_header.php'); ?>
  ?></th>
 
 <th><?php
-	$output  = "<a href=\"delete_all_selected_test.php?id=";
+	$output  = htmlentities($subj->group_name);
+	$output .= "<br><br>";
+	$output .= "<a href=\"delete_all_selected_test.php?id=";
 	$output .= urlencode($subj->id);
 	$output .= "\">";
 	$output .= htmlentities($subj->name);
