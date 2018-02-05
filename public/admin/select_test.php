@@ -49,11 +49,13 @@ include_layout_template('admin_header.php'); ?>
 	$results = Select::find_by_subject_id($subject); 
 	if(isset($results)){
 		foreach($results as $result){
-			$output  = "<a href=\"delete_selected_test.php?id=";
+			$output  = htmlentities($result->question);
+			$output .= "<br>";
+			$output .= "<div id=\"delete_select_test\">";
+			$output .= "<a href=\"delete_selected_test.php?id=";
 			$output .= urlencode($result->id);
 			$output .= "\">";
-			$output .= htmlentities($result->question);
-			$output .= "</a><br>";
+			$output .= "Удалить</a><br><br><br></div>";
 			echo $output;
 		}
 	}
