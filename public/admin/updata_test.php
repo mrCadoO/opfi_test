@@ -23,7 +23,6 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 		$test->answer4  = !empty($_POST['answer4']) ? $_POST['answer4'] : $test->answer4;
 		$test->answer5  = !empty($_POST['answer5']) ? $_POST['answer5'] : $test->answer5;
 		$test->answer6  = !empty($_POST['answer6']) ? $_POST['answer6'] : $test->answer6;
-		$test->visible = (int)$_POST["visible"];
 
 	$check = isset($_POST['truth']) ? $_POST['truth'] : null;
 	for($i=0; $i < 1; $i++){
@@ -98,13 +97,6 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 		<input type="radio" name="truth[]" value="6" />
 		<input type="text" name="answer6" value="" />
 	</li><br/><br/>
-
-	<li>
-		Отображать? <br>
-		ДА <input type="radio" name="visible" value="1" <?php if($test->visible == 1){echo "checked";}?> /> <br>
-		НЕТ <input type="radio" name="visible" value="0" <?php if($test->visible == 0){echo "checked";}?> />
-	</li>
-
 </ul><br /><br /><br />
 <input type="submit" name="submit" value="Обновить" />
 </form>

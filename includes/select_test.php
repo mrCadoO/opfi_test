@@ -4,7 +4,7 @@ require_once(LIB_PATH.DS.'database.php');
 class Select extends DatabaseObject {
 	
 	protected static $table_name="selected_test";
-	protected static $db_fields = array('question', 'subject_id', 'answer1','answer2', 'answer3', 'answer4', 'answer5', 'answer6', 'truth1', 'truth2', 'truth3', 'truth4', 'truth5', 'truth6', 'test_name');
+	protected static $db_fields = array('question', 'subject_id', 'answer1','answer2', 'answer3', 'answer4', 'answer5', 'answer6', 'truth1', 'truth2', 'truth3', 'truth4', 'truth5', 'truth6');
 	
 	public $id;
 	public $question;
@@ -20,9 +20,7 @@ class Select extends DatabaseObject {
 	public $truth3;
 	public $truth4;
 	public $truth5;
-	public $truth6;	
-	public $test_name;	
-	
+	public $truth6;		
 	
 	
 	public static function find_all() {
@@ -145,52 +143,6 @@ class Select extends DatabaseObject {
 	  $database->query($sql);
 	  return ($database->affected_rows() == 1) ? true : false;
 	}
-
-
-	public function form_for_test(){
-	
-		echo "<form method=\"post\">";
-		echo $this->question . "<br />";
-	 	if(!empty($this->answer1)){
-	 		echo "<input type=\"radio\" name=\"answer[]\" value=\"1\" >"; 
-	  		echo $this->answer1;
-	  		echo "<br />";
-	  	}
-		if(!empty($this->answer2)){
-			echo "<input type=\"radio\" name=\"answer[]\" value=\"2\" >"; 
-			echo $this->answer2;
-			echo "<br />";
-		}
-
-		if(!empty($this->answer3)){
-			echo "<input type=\"radio\" name=\"answer[]\" value=\"3\" >";
-			echo $this->answer3; 
-			echo "<br />";
-		}
-
-		if(!empty($this->answer4)){
-			echo "<input type=\"radio\" name=\"answer[]\" value=\"4\" >";
-			echo $this->answer4;
-			echo "<br />";
-		}
-
-		if(!empty($this->answer5)){
-			echo "<input type=\"radio\" name=\"answer[]\" value=\"5\" >";
-			echo $this->answer5;
-			echo "<br />";
-		}
-
-		if(!empty($this->answer6)){
-			echo "<input type=\"radio\" name=\"answer[]\" value=\"6\" >";
-			echo $this->answer6; 
-		}
-		echo "<br/><br/>";
-		echo "<input type=\"submit\" name=\"submit\" value=\"Готово\">";
-		echo "</form>";
-	
-}
-
-
 	
 
 }

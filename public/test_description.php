@@ -1,11 +1,23 @@
 <?php require_once('../includes/initialize.php'); ?>
 <?php confirm_logged_in(); ?>	
-<?php 
+<?php
+	
+	if(isset($_SESSION['get_data'])){
+		if($_SESSION['get_data'] != $_GET['subject']){
+			$_SESSION['get_data'] = null;
+			$_SESSION['user_login'] = null;
+			redirect_to("index.php");
+		}
+	} else {
+		$_SESSION['get_data'] = $_GET['subject'];
+	}
+
 
 	$session->annulment(); //unnulment page and assesment
 	if(isset($_POST['submit'])){
 		$new_stud = new Students();
-		$student = Start_student::find_by_id($_GET['user_id']); 
+		$user_id = $_SESSION['user_login'];
+		$student = Start_student::find_by_id($user_id); 
 		$test = new_Subject::find_by_id($_GET['subject']); 
 
 		$new_stud->first_name = $student->first_name;
@@ -15,7 +27,7 @@
 		$new_stud->test_name = $test->name;
 		$new_stud->create();
 		$_SESSION['Id'] = $new_stud->id;
-		redirect_to("time_to_tests.php?page=1&subject={$_GET['subject']}&user_id={$_GET['user_id']}");
+		redirect_to("time_to_tests.php?page=1&subject={$_GET['subject']}");
 	}
 ?>
 
@@ -36,7 +48,7 @@
  ?>
 
 
-<form action="test_description.php?subject=<?php echo $_GET['subject'];?>&user_id=<?php echo $_GET['user_id'];?>" method="POST">
+<form action="test_description.php?subject=<?php echo $_GET['subject'];?>" method="POST">
 	
 	<input type="submit" name="submit" value="Начать тестирование">
 

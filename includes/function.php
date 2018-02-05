@@ -1,6 +1,6 @@
 <?php
 
-function strip_zeros_from_date( $marked_string="" ) {
+function strip_zeros_from_date($marked_string="") {
   // first remove the marked zeros
   $no_zeros = str_replace('*0', '', $marked_string);
   // then remove any remaining marks
@@ -83,23 +83,6 @@ function log_action($action, $message="") {
     endforeach;
     echo "</ul>";
 
-  }
-
-
-  function list_test_for_user($user_id){
-    $results = new_Subject::find_all();
-    echo "<ul type=\"none\">";
-    foreach ($results as $result):
-      $output  = "<li>";
-      $output .= "<a href=\"test_description.php?subject=";
-      $output .= urlencode($result->id);
-      $output .= "&user_id={$user_id}";
-      $output .= "\"> ";
-      $output .= htmlentities($result->name);
-      $output .= "</a>";
-       echo $output;
-      endforeach;
-     
   }
 
 

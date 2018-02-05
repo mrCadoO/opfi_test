@@ -11,14 +11,12 @@
 		$_SESSION["username"] = $found_user["login"];
 		if($found_user){
 			$session->message("All okay");
-		redirect_to("index_test_page.php?user_id={$_SESSION['user_login']}");
-	} else {
-		$session->message("All BAD");
-		redirect_to("started_test_page.php");
+			redirect_to("index_test_page.php");
+		} else {
+			$session->message("All BAD");
+			redirect_to("started_test_page.php");
+		}
 	}
-	}
-
-
 
 ?>
 
@@ -29,13 +27,10 @@
 <form action="started_test_page.php" method="POST">
 	<p>Введите LOGIN</p>
 	<input type="text" name="login" />
-
-	<p>ведите PASSWORD</p>
+	<p>Введите PASSWORD</p>
 	<input type="text" name="password" /> <br><br><br><br>
-
 	<input type="submit" name="submit" value="Отправить">
 </form>
-
 
 
 <?php include_layout_template('footer.php'); ?>

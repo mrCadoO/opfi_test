@@ -15,9 +15,6 @@ $subjects = Subjects::find_one_element($current_subject);
 <h2>Тесты: <?php echo $subject->name; ?> </h2>
 <a href="updata_subject.php?id=<?php echo $subject->id; ?>">Обновка</a><br>
 <a href="description_test.php?test_id=<?php echo $subject->id; ?>">Описание теста</a><br>
-
-<a href="for_group.php?test_id=<?php echo $subject->id; ?>">Отображение теста для групп</a><br>
-
 <a href="delete_subject.php?id=<?php echo $subject->id; ?>">Удалить все содержимое данного теста.</a>
 <?php endforeach; ?>
 
@@ -91,15 +88,6 @@ $subjects = Subjects::find_one_element($current_subject);
 					echo "<input type=\"radio\" name=\"\" disabled>"; }
 				} ?>
 			</li>	
-			<li>
-				<br>Статус вопроса <br> <?php 
-					if($test->visible == 1) { 
-					echo "Отображен <input type=\"radio\" name=\"\" disabled checked ><br>Не отображен <input type=\"radio\" name=\"\" disabled ><br>"; 
-				} else {
-				echo "Отображен <input type=\"radio\" name=\"\" disabled ><br>Не отображен <input type=\"radio\" name=\"\" disabled checked ><br>";  }
-				?>
-
-			</li>
 		</ul>
 	</li><br />
 
@@ -112,5 +100,5 @@ $subjects = Subjects::find_one_element($current_subject);
 </form>
 
 <br /><br /><br /><br />	
-<div><a href="new_test.php?subject=<?php echo urlencode($current_subject); ?>">Добавить новый тест</a></div>
+<div><a href="new_test.php?subject=<?php echo urlencode($current_subject); ?>">Добавить вопрос</a></div>
 <?php include_layout_template('admin_footer.php'); ?>
