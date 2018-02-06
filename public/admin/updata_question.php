@@ -4,13 +4,13 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 <?php
 	if(empty($_GET['id'])) {
     	$session->message("Данный вопрос не найден.");
-    	redirect_to('list_tests.php');
+    	redirect_to("current_test.php");
   	}
 	$test = Tests::find_by_id($_GET['id']);
 
 	if(!$test) {
     	$session->message("Вопрос не найден.");
-    	redirect_to('index.php');
+    	redirect_to("index.php");
   }
 
 	if(isset($_POST['submit'])) {
@@ -36,7 +36,9 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 
 	if($test->update()){
 		$session->message('Вопрос успешно обновлен.');
-		redirect_to("list_tests.php?subject={$test->subject_id}");
+		redirect_to("current_test.php?subject={$test->subject_id}");
+	} else {
+		$session->message("Что то пошло не так!");
 	}
 
 
@@ -47,7 +49,7 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 <?php include_layout_template('admin_header.php'); ?>
 <?php echo output_message($message); ?>
 
-<form action="updata_test.php?id=<?php echo $test->id; ?>" method="POST">
+<form action="updata_question.php?id=<?php echo $test->id; ?>" method="POST">
 <ul type="none">
 
 	<li>	

@@ -9,10 +9,10 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 		if(!empty($result->group_name)){
 			$session->message("Группа создана.");
 			$result->create();
-			redirect_to("list_group.php");
+			redirect_to("list_groups.php");
 		} else {
 			$session->message("Неверное название группы.");
-			redirect_to("list_group.php");
+			redirect_to("list_groups.php");
 		}
 	}
 ?>

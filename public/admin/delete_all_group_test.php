@@ -9,12 +9,12 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); }
 		redirect_to("index.php");
 	}
 
-	$subj = new_Subject::find_by_id($_GET['id']);
-	$test = new Select();
+	$subj = group_Subject::find_by_id($_GET['id']);
+	$test = new group_Test();
 		$test->delete_all_test_by_subject_id($_GET['id']);
 		$subj->delete();
 			$session->message("Удалено Успешно.");
-			redirect_to("list_select_test.php");
+			redirect_to("list_group_test.php");
 		
 ?>
 

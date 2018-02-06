@@ -9,7 +9,7 @@ $subjects = Subjects::find_one_element($current_subject);
 
 
 <?php include_layout_template('admin_header.php'); ?>	
-<a href="manage_test.php">&laquo; Назад</a>
+<a href="list_all_tests.php">&laquo; Назад</a>
 
 <?php foreach ($subjects as $subject): ?>
 <h2>Тесты: <?php echo $subject->name; ?> </h2>
@@ -21,12 +21,12 @@ $subjects = Subjects::find_one_element($current_subject);
 <?php echo output_message($message); ?>
 
 
-
+<?php if(isset($subject)){ ?>
 <form method="POST">
 <ul type="none">
 
 <?php foreach ($tests as $test): ?>
-
+	
 	<li><?php echo $test->question; ?></li>
 		<ul type="none">
 			<li><?php
@@ -92,8 +92,8 @@ $subjects = Subjects::find_one_element($current_subject);
 	</li><br />
 
 		
-	<?php echo "<a href=\"updata_test.php?id={$test->id}\" >Обновка</a>"; ?>
-	<?php echo "<a href=\"delete_test.php?id={$test->id}\" >Удалить</a>"; ?>
+	<?php echo "<a href=\"updata_question.php?id={$test->id}\" >Обновка</a>"; ?>
+	<?php echo "<a href=\"delete_question.php?id={$test->id}\" >Удалить</a>"; ?>
 	<br><br><br><br>
 <?php endforeach; ?>
 </ul>
@@ -101,4 +101,5 @@ $subjects = Subjects::find_one_element($current_subject);
 
 <br /><br /><br /><br />	
 <div><a href="new_test.php?subject=<?php echo urlencode($current_subject); ?>">Добавить вопрос</a></div>
+<?php } else { redirect_to("list_all_tests.php"); } ?>
 <?php include_layout_template('admin_footer.php'); ?>

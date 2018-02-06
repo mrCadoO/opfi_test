@@ -6,14 +6,14 @@ $subject = $_GET['subject'];
 if(!$subject){
 	redirect_to("manage_test.php");
 }
-$subj = new_Subject::find_by_id($subject);
+$subj = group_Subject::find_by_id($subject);
 	if(!$subj->id){
 		redirect_to("manage_test.php");
 	}
 
 
 include_layout_template('admin_header.php'); ?>	
-<a href="manage_test.php">&laquo; Назад</a> <br/><br/>	
+<a href="list_group_test.php">&laquo; Назад</a> <br/><br/>	
 
 <table>
 <tr><th style="text-align: left; width: 600px;"><?php 
@@ -26,7 +26,7 @@ include_layout_template('admin_header.php'); ?>
       $tests = Tests::find_tests_for_subject($result->id);
       foreach ($tests as $test):
         $output .= "</h2><ul><li>";
-        $output .= "<a href=\"create_select_test.php?test=";
+        $output .= "<a href=\"create_group_test.php?test=";
         $output .= urlencode($test->id);
         $output .= "&subject={$_GET['subject']}";
         $output .= "\">";
@@ -42,19 +42,19 @@ include_layout_template('admin_header.php'); ?>
 <th><?php
 	$output  = htmlentities($subj->group_name);
 	$output .= "<br><br>";
-	$output .= "<a href=\"delete_all_selected_test.php?id=";
+	$output .= "<a href=\"delete_all_group_test.php?id=";
 	$output .= urlencode($subj->id);
 	$output .= "\">";
 	$output .= htmlentities($subj->name);
 	$output .= "</a><br><br>";
 	echo $output;
-	$results = Select::find_by_subject_id($subject); 
+	$results = group_Test::find_by_subject_id($subject); 
 	if(isset($results)){
 		foreach($results as $result){
 			$output  = htmlentities($result->question);
 			$output .= "<br>";
 			$output .= "<div id=\"delete_select_test\">";
-			$output .= "<a href=\"delete_selected_test.php?id=";
+			$output .= "<a href=\"delete_group_test.php?id=";
 			$output .= urlencode($result->id);
 			$output .= "\">";
 			$output .= "Удалить</a><br><br><br></div>";

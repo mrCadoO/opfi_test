@@ -59,33 +59,7 @@ function log_action($action, $message="") {
     }
   }
 
-   function admin_test(){
-    $results = Subjects::find_all();
-    echo "<ul type=\"none\">";
-    foreach ($results as $result):
-      $output  = "<li>";
-      $output .= "<a href=\"list_tests.php?subject=";
-      $output .= urlencode($result->id);
-      $output .= "\"> ";
-      $output .= htmlentities($result->name);
-      $output .= "</a>";
-      $tests = Tests::find_tests_for_subject($result->id);
-      foreach ($tests as $test):
-        $output .= "<ul><li>";
-        $output .= "<a href=\"current_question.php?test=";
-        $output .= urlencode($test->id);
-        $output .= "\">";
-        $output .= htmlentities($test->question);
-        $output .= "</a></li></ul>";
-      endforeach;
-      $output .="</li>";
-      echo $output;
-    endforeach;
-    echo "</ul>";
-
-  }
-
-
+  
   function password_encrypt($password) {
     $hash_format = "$2y$10$";
     $salt_length = 22;

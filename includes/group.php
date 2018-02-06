@@ -93,7 +93,7 @@ class Groups extends DatabaseObject {
 		}
 		$sql = "UPDATE ".self::$table_name." SET ";
 		$sql .= join(", ", $attribute_pairs);
-		$sql .= " WHERE test_id={$this->test_id}";
+		$sql .= " WHERE id={$this->id} LIMIT 1";
 	  $database->query($sql);
 	  return ($database->affected_rows() == 1) ? true : false;
 	}

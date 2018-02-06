@@ -4,7 +4,7 @@
 <?php
 
   //end of test
-  $total_count = Select::count_all($current_subject);
+  $total_count = group_Test::count_all($current_subject);
   if($_GET['page'] > $total_count){
     redirect_to("index.php");
   } 
@@ -23,9 +23,9 @@
 
   //update assessment (db)
   $user_id = $_SESSION['Id'];
-  $student = Students::find_by_id($user_id);
-  $student->assessment = $_SESSION['assessment'];
-  $student->update_assessment($user_id);
+  $result = Result::find_by_id($user_id);
+  $result->assessment = $_SESSION['assessment'];
+  $result->update_assessment($user_id);
 
 
   //PAGINATION
@@ -36,7 +36,7 @@
 	$sql .= "WHERE subject_id='{$current_subject}' ";
 	$sql .= "LIMIT {$per_page} ";
 	$sql .= "OFFSET {$pagination->offset()}";
-	$tests = Select::find_by_sql($sql);
+	$tests = group_Test::find_by_sql($sql);
 
 
   //validation of page number

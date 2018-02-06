@@ -5,7 +5,7 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 	$test_id = $_GET['test_id'];
 	if(!$test_id){
 		$session->message("Неверный id теста");
-		redirect_to('index.php');
+		redirect_to("index.php");
 	}
 
 	if(isset($_POST['submit'])){
@@ -13,10 +13,8 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 		$info->description = !empty($_POST['comment']) ? $_POST['comment'] : "Информация отстствует.";
 		$info->test_id = $test_id;
 		$information = Description_test::find_by_test_id($test_id);
-		
 		$info->save($test_id);
-
-		//list_tests.php?id={$test_id}
+		redirect_to("current_test.php?subject={$test_id}");
 	}
 ?>
 
@@ -47,4 +45,4 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 
 
 
-	<?php include_layout_template('admin_footer.php'); ?>
+<?php include_layout_template('admin_footer.php'); ?>

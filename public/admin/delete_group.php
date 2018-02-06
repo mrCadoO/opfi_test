@@ -6,12 +6,12 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); }
 <?php
 	if(empty($_GET['id'])){
 		$session->message("No  ID was provided.");
-		redirect_to('list_group.php');
+		redirect_to('list_groups.php');
 	}
 
 	$result = Groups::find_by_id($_GET['id']);;
 		$result->delete();
-		redirect_to("list_group.php");
+		redirect_to("list_groups.php");
 ?>
 
 <?php if(isset($database)){ $database->close_connection(); } ?>

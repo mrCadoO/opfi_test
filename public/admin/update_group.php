@@ -4,13 +4,16 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 
 <?php
 	$result = Groups::find_by_id($_GET['id']);
-
+	if(!$result){
+		$session->message("Нельзя обновить, так как отсутствует id.");
+		redirect_to("list_groups.php");
+	}
 	if(isset($_POST['submit'])){
 		if(!empty($_POST['group_name'])){
 			$result->group_name = $_POST['group_name'];
 			$session->message('Информация успешно обновлена.');
 			$result->update();
-			redirect_to("list_group.php");
+			redirect_to("list_groups.php");
 			} else {
 			$session->message('Заполните поле ввода');
 			redirect_to("update_group.php?id={$result->id}");	

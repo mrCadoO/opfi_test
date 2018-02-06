@@ -4,11 +4,10 @@ require_once(LIB_PATH.DS.'database.php');
 class Subjects extends DatabaseObject {
 	
 	protected static $table_name="subject";
-	protected static $db_fields = array('name', 'group_name');
+	protected static $db_fields = array('name');
 	
 	public $id;
 	public $name;
-	public $group_name;
 	
 	
 	public static function find_all() {

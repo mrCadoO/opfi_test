@@ -1,30 +1,51 @@
 <?php
 require_once(LIB_PATH.DS.'database.php');
 
-class new_Subject extends DatabaseObject {
+class group_Test extends DatabaseObject {
 	
-	protected static $table_name="subject_for_user";
-	protected static $db_fields = array('name', 'group_name');
+	protected static $table_name="selected_test";
+	protected static $db_fields = array('question', 'subject_id', 'answer1','answer2', 'answer3', 'answer4', 'answer5', 'answer6', 'truth1', 'truth2', 'truth3', 'truth4', 'truth5', 'truth6');
 	
 	public $id;
-	public $name;
-	public $group_name;
+	public $question;
+	public $subject_id;
+	public $answer1;
+	public $answer2;
+	public $answer3;
+	public $answer4;
+	public $answer5;
+	public $answer6;
+	public $truth1;
+	public $truth2;
+	public $truth3;
+	public $truth4;
+	public $truth5;
+	public $truth6;		
 	
 	
 	public static function find_all() {
 		return self::find_by_sql("SELECT * FROM ".self::$table_name);
-  	}
-  
+  }
+
   
   public static function find_by_id($id=0) {
     $result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE id={$id} LIMIT 1");
 		return !empty($result_array) ? array_shift($result_array) : false;
   }
 
-
-  public static function find_by_group_name($name="") {
-   return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE group_name='{$name}'");
+   public static function find_by_subject_id($id=0) {
+   		return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE subject_id={$id}");
+		
   }
+
+    public static function count_all($id){
+  		global $database;
+  		$sql  = "SELECT COUNT(*) FROM " .self::$table_name;
+  		$sql .= " WHERE subject_id='{$id}'";
+  		$result_set = $database->query($sql);
+  		$row = $database->fetch_array($result_set);
+  			return array_shift($row);
+  	}
 
      
   public static function find_by_sql($sql="") {
@@ -115,7 +136,13 @@ class new_Subject extends DatabaseObject {
 	  return ($database->affected_rows() == 1) ? true : false;
 	}
 
-
+	public function delete_all_test_by_subject_id($subjec_id){
+		global $database;
+	  $sql = "DELETE FROM ".self::$table_name;
+	  $sql .= " WHERE subject_id=". $database->escape_value($subjec_id);
+	  $database->query($sql);
+	  return ($database->affected_rows() == 1) ? true : false;
+	}
 	
 
 }

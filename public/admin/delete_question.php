@@ -4,16 +4,18 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); }
 ?>
 
 <?php
+
 	if(empty($_GET['id'])){
 		$session->message("No test ID was provided.");
-		redirect_to("index.php");
+		redirect_to('index.php');
 	}
 
-	$test = Select::find_by_id($_GET['id']);
+	$test = Tests::find_by_id($_GET['id']);
 		if($test->delete()){
 			$session->message("Удалено Успешно.");
-			redirect_to("select_test.php?subject={$test->subject_id}");
+			redirect_to("current_test.php?subject={$test->subject_id}");
 		}
+			
 ?>
 
 <?php if(isset($database)){ $database->close_connection(); } ?>

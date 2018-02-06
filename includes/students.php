@@ -1,9 +1,9 @@
 <?php
 require_once(LIB_PATH.DS.'database.php');
 
-class Start_student extends DatabaseObject {
+class Student extends DatabaseObject {
 	
-	protected static $table_name="start_student";
+	protected static $table_name="students";
 	protected static $db_fields = array('first_name', 'last_name', 'group_name', 'login', 'hashed_password');
 	
 	public $id;

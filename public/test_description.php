@@ -15,18 +15,18 @@
 
 	$session->annulment(); //unnulment page and assesment
 	if(isset($_POST['submit'])){
-		$new_stud = new Students();
+		$result = new Result();
 		$user_id = $_SESSION['user_login'];
-		$student = Start_student::find_by_id($user_id); 
-		$test = new_Subject::find_by_id($_GET['subject']); 
+		$student = Student::find_by_id($user_id); 
+		$test = group_Subject::find_by_id($_GET['subject']); 
 
-		$new_stud->first_name = $student->first_name;
-		$new_stud->last_name  = $student->last_name;
-		$new_stud->group_name = $student->group_name;
-		$new_stud->assessment = '0';
-		$new_stud->test_name = $test->name;
-		$new_stud->create();
-		$_SESSION['Id'] = $new_stud->id;
+		$result->first_name = $student->first_name;
+		$result->last_name  = $student->last_name;
+		$result->group_name = $student->group_name;
+		$result->assessment = '0';
+		$result->test_name = $test->name;
+		$result->create();
+		$_SESSION['Id'] = $result->id;
 		redirect_to("time_to_tests.php?page=1&subject={$_GET['subject']}");
 	}
 ?>
@@ -36,7 +36,7 @@
 <?php echo output_message($message); ?>
 
 <?php
- 	$subj = new_Subject::find_by_id($_GET['subject']);
+ 	$subj = group_Subject::find_by_id($_GET['subject']);
  	echo "Тема: ". $subj->name . "<br><br><br><br>";
 
  	$info = Description_test::find_by_test_id($_GET['subject']);

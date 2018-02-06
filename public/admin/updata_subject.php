@@ -4,13 +4,13 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 <?php
 	if(empty($_GET['id'])) {
     	$session->message("Данныe не найдеы.");
-    	redirect_to('list_tests.php');
+    	redirect_to("current_test.php");
   	}
 	$subject = Subjects::find_by_id($_GET['id']);
 
 	if(!$subject) {
     	$session->message("Вопрос не найден.");
-    	redirect_to('index.php');
+    	redirect_to("index.php");
   }
 
 	if(isset($_POST['submit'])) {
@@ -20,7 +20,7 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 
 	if($subject->update()){
 		$session->message('Вопрос успешно обновлен.');
-		redirect_to("list_tests.php?subject={$subject->id}");
+		redirect_to("current_test.php?subject={$subject->id}");
 	}
 
 	} 

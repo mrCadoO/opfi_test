@@ -5,11 +5,11 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); }
 
 <?php
 	if(empty($_GET['subject']) || empty($_GET['test'])){
-		redirect_to('select_test.php');
+		redirect_to("list_group_test.php");
 	}
 
 	$test = Tests::find_by_id($_GET['test']);
-	$result = new Select();
+	$result = new group_Test();
 	$result->question = $test->question;
 	$result->answer1 = $test->answer1;
 	$result->answer2 = $test->answer2;
@@ -26,7 +26,7 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); }
 	$result->subject_id = $_GET['subject'];
 	$result->create();
 	$session->message("all okay");
-	redirect_to("select_test.php?subject={$_GET['subject']}");
+	redirect_to("select_questions_for_group.php?subject={$_GET['subject']}");
 ?>
 
 <?php if(isset($database)){ $database->close_connection(); } ?>	

@@ -27,10 +27,10 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 		}
 		if($test->create()){
 			$session->message('Тест добавлен успешно');
-			redirect_to('list_tests.php?subject='.urlencode($current_subject));
+		redirect_to('current_test.php?subject='.urlencode($current_subject));
 		} else {
 			$session->message('Что то пошло не так!!!! ERROR');
-			redirect_to('list_tests.php');
+			redirect_to('current_test.php');
 		} 
 	}
 ?>
@@ -42,7 +42,7 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 
 <?php include_layout_template('admin_header.php'); ?>
 
-<a href="list_tests.php?subject=<?php echo urlencode($current_subject); ?>">&laquo; Назад</a>
+<a href="current_test.php?subject=<?php echo urlencode($current_subject); ?>">&laquo; Назад</a>
 <?php echo output_message($message); ?>
 		
 <form action="new_test.php?subject=<?php echo urlencode($current_subject); ?>" method="post">

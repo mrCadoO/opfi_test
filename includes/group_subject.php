@@ -1,24 +1,20 @@
 <?php
 require_once(LIB_PATH.DS.'database.php');
 
-class Students extends DatabaseObject {
+class group_Subject extends DatabaseObject {
 	
-	protected static $table_name="students";
-	protected static $db_fields = array('first_name', 'last_name', 'group_name', 'assessment', 'test_name');
+	protected static $table_name="subject_for_user";
+	protected static $db_fields = array('name', 'group_name');
 	
 	public $id;
-	public $first_name;
-	public $last_name;
+	public $name;
 	public $group_name;
-	public $assessment;
-	public $test_name;
-	public static $pass=false;
 	
-
-	// Common Database Methods
+	
 	public static function find_all() {
 		return self::find_by_sql("SELECT * FROM ".self::$table_name);
-  }
+  	}
+  
   
   public static function find_by_id($id=0) {
     $result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE id={$id} LIMIT 1");
@@ -26,7 +22,11 @@ class Students extends DatabaseObject {
   }
 
 
-  
+  public static function find_by_group_name($name="") {
+   return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE group_name='{$name}'");
+  }
+
+     
   public static function find_by_sql($sql="") {
     global $database;
     $result_set = $database->query($sql);
@@ -72,7 +72,8 @@ class Students extends DatabaseObject {
 	}
 	
 	public function save() {
-		return isset($this->id) ? $this->update() : $this->create();
+	  // A new record won't have an id yet.
+	  return isset($this->id) ? $this->update() : $this->create();
 	}
 	
 	public function create() {
@@ -91,22 +92,19 @@ class Students extends DatabaseObject {
 	  }
 	}
 
-	public function update_assessment($id){
-		global $database;
-		$sql  = "UPDATE ".self::$table_name." SET assessment='{$this->assessment}'";
-		$sql .= " WHERE id={$id}";
-		$database->query($sql);
-		return ($database->affected_rows() == 1) ? true : false;
+	public function update() {
+	  global $database;
+		$attributes = $this->sanitized_attributes();
+		$attribute_pairs = array();
+		foreach($attributes as $key => $value) {
+		  $attribute_pairs[] = "{$key}='{$value}'";
+		}
+		$sql = "UPDATE ".self::$table_name." SET ";
+		$sql .= join(", ", $attribute_pairs);
+		$sql .= " WHERE id=". $database->escape_value($this->id);
+	  $database->query($sql);
+	  return ($database->affected_rows() == 1) ? true : false;
 	}
-
-	public function update_test_name($user_id){
-		global $database;
-		$sql  = "UPDATE ".self::$table_name." SET test_name='{$this->test_name}'";
-		$sql .= " WHERE id={$user_id}";
-		$database->query($sql);
-		return ($database->affected_rows() == 1) ? true : false;
-	}
-
 
 	public function delete() {
 		global $database;
@@ -117,6 +115,8 @@ class Students extends DatabaseObject {
 	  return ($database->affected_rows() == 1) ? true : false;
 	}
 
+
+	
 
 }
 

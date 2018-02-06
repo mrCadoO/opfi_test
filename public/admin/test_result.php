@@ -2,7 +2,7 @@
 require_once('../../includes/initialize.php');
 if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 <?php 			
-	$results = Students::find_all();
+	$results = Result::find_all();
 ?>
 
 <?php include_layout_template('admin_header.php'); ?>	

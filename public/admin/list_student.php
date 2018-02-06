@@ -2,7 +2,7 @@
 require_once('../../includes/initialize.php');
 if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 <?php 			
-	$studs = Start_student::find_all();
+	$studs = Student::find_all();
 
 ?>
 

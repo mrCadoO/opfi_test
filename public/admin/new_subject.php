@@ -5,16 +5,15 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 	
 <?php
 	if(isset($_POST['submit'])){
-		if(!empty($_POST['test_name']) || !empty($_POST['group_name'])){
+		if(!empty($_POST['test_name'])){
 			$subject = new Subjects();
 			$subject->name = $_POST['test_name'];
-			$subject->group_name = $_POST['group_name'];
 			$session->message('Страничка успешно создана.');
 			$subject->create();
-			redirect_to("list_tests.php?subject={$subject->id}");
+			redirect_to("current_test.php?subject={$subject->id}");
 			} else {
 			$session->message('Заполните поле ввода');
-			redirect_to('new_subject.php');	
+			redirect_to("new_subject.php");	
 			}
 	}
 ?>
@@ -24,8 +23,6 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 <form action="new_subject.php" method="post">
 	<p>Название теста</p>
 	<input type="text" name="test_name" />
-	<p>Группа</p>
-	<input type="text" name="group_name" /> <br><br><br><br>
 	<input type="submit" name="submit" value="Отправить" />
 </form>
 

@@ -9,7 +9,7 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); }
 		redirect_to('list_student.php');
 	}
 
-	$stud = Start_student::find_by_id($_GET['id']);
+	$stud = Student::find_by_id($_GET['id']);
 		$stud->delete();
 		$session->message("Информация успешно удалена.");
 		redirect_to("list_student.php");

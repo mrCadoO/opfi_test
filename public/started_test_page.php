@@ -2,7 +2,7 @@
 <?php 
 
 	if(isset($_POST['submit'])){
-		$student = new Start_student();
+		$student = new Student();
 		$student->login = $_POST['login'];
 		$student->hashed_password = $_POST['password'];
 

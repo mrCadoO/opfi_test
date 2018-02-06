@@ -6,18 +6,14 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); }
 <?php
 	if(empty($_GET['id'])){
 		$session->message("No test ID was provided.");
-		redirect_to('index.php');
+		redirect_to("index.php");
 	}
 
-	$test = Tests::find_by_id($_GET['id']);
+	$test = group_Test::find_by_id($_GET['id']);
 		if($test->delete()){
 			$session->message("Удалено Успешно.");
-			redirect_to("manage_test.php");
+			redirect_to("select_questions_for_group.php?subject={$test->subject_id}");
 		}
-			
-		
-	
-
 ?>
 
 <?php if(isset($database)){ $database->close_connection(); } ?>

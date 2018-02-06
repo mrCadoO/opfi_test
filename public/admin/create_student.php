@@ -5,7 +5,7 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 	
 <?php
 	if(isset($_POST['submit'])){
-		$new_stud = new Start_student();
+		$new_stud = new Student();
 		$new_stud->first_name = $_POST['first_name'];
 		$new_stud->last_name = $_POST['last_name'];
 		$new_stud->group_name = $_POST['group_name'];

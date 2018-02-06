@@ -1,7 +1,6 @@
 <?php
-require_once("../../includes/initialize.php");
-if(!$session->is_loged_in()){ redirect_to("login.php"); } 
-?>
+require_once("../../includes/initialize.php"); ?>
+<?php if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 
 <?php
 	if(empty($_GET['id'])){
@@ -13,13 +12,8 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); }
 	$test = new Tests();
 		$test->delete_all_test_by_subject_id($_GET['id']);
 		$subject->delete();
-
-		redirect_to("manage_test.php");
+		redirect_to("list_all_tests.php");
 		
-			
-		
-	
-
 ?>
 
 <?php if(isset($database)){ $database->close_connection(); } ?>
