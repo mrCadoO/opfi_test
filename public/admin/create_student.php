@@ -5,6 +5,13 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 	
 <?php
 	if(isset($_POST['submit'])){
+		$validation = Student::find_all();
+		foreach ($validation as $valid) {
+			if($valid->login == $_POST['login']){
+				$session->message("Пользователь с таким логином уже существует");
+				redirect_to("create_student.php");
+			}
+		}
 		$new_stud = new Student();
 		$new_stud->first_name = $_POST['first_name'];
 		$new_stud->last_name = $_POST['last_name'];
