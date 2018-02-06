@@ -7,7 +7,8 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 ?>
 
 <?php include_layout_template('admin_header.php'); ?>	
-<a href="manage_student.php">&laquo; Назад</a><br /><br /><br />
+<a href="manage_student.php">&laquo; Назад</a><br /><br />
+<a href="create_student.php">Создать информацию о студенте</a><br/><br/><br/><br/>
 <?php echo output_message($message); ?>
 
 <table>

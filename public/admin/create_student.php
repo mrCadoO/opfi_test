@@ -43,7 +43,20 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 	<input type="text" name="last_name" size="50" /><br /><br />
 
 	<p>Введите название группы</p>
-	<input type="text" name="group_name" size="50" /><br /><br />
+	<select style="width: 325px;" name="group_name">
+		<?php
+			$groups = Groups::find_all();
+			foreach ($groups as $group) {
+				$output  = "<option";
+				$output .= " value=\"";
+				$output .= htmlentities($group->group_name);
+				$output .= "\" >";
+				$output .= htmlentities($group->group_name);
+				$output .= "</option>";
+				echo $output;
+			}
+		?>
+	</select><br><br><br><br>
 
 	<input type="submit" name="submit">
 </form>
