@@ -1,7 +1,15 @@
 <?php require_once('../includes/initialize.php'); ?>
-<?php confirm_logged_in(); ?>
+<?php $session->logged();  ?>
 <?php  find_selected_test(); ?>
 <?php
+
+
+    //update assessment (db)
+  $user_id = $_SESSION['Id'];
+  $result = Result::find_by_id($user_id);
+  $result->assessment = $_SESSION['assessment'];
+  $result->update_assessment($user_id);
+
 
   //end of test
   $total_count = group_Test::count_all($current_subject);
@@ -14,18 +22,12 @@
   if(isset($_SESSION['get_data'])){
     if($_SESSION['get_data'] != $_GET['subject']){
       $_SESSION['get_data'] = null;
-      $_SESSION['user_login'] = null;
+      $_SESSION['user_id'] = null;
       redirect_to("index.php");
     }
   }
   $_SESSION['get_data'] = null;
 
-
-  //update assessment (db)
-  $user_id = $_SESSION['Id'];
-  $result = Result::find_by_id($user_id);
-  $result->assessment = $_SESSION['assessment'];
-  $result->update_assessment($user_id);
 
 
   //PAGINATION

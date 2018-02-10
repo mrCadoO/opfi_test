@@ -5,17 +5,18 @@ if($session->is_loged_in()) {
   redirect_to("index.php");
 }
 
-if (isset($_POST['submit'])) { 
-
+if(isset($_POST['submit'])) { 
   $username = trim($_POST['username']);
   $password = trim($_POST['password']);
   
   // Check database to see if username/password exist.
-	$found_user = Admin::authenticate($username, $password);
+
+
+	$found_admin = Admin::attempt_login($username, $password);
 	
-  if ($found_user) {
-    $session->login($found_user);
-		log_action('Login', "{$found_user->username} logged in.");
+  if($found_admin) {
+    $session->login($found_admin);
+	log_action('Login', "{$found_admin->username} logged in.");
     redirect_to("index.php");
   } else {
     $message = "Username/password combination incorrect.";

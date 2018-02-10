@@ -1,21 +1,26 @@
 <?php require_once('../includes/initialize.php'); ?>
 <?php 
+	
+	if($session->confirm_logged_in()) {
+ 		redirect_to("index_test_page.php");
+	}
 
 	if(isset($_POST['submit'])){
-		$student = new Student();
-		$student->login = $_POST['login'];
-		$student->hashed_password = $_POST['password'];
+		$login = trim($_POST['login']);
+		$password = trim($_POST['password']);
 
-		$found_user = $student->attempt_login($student->login, $student->hashed_password);
-		$_SESSION["user_login"] = $found_user["id"];
-		$_SESSION["username"] = $found_user["login"];
+		$found_user = Student::attempt_login($login, $password);
+
 		if($found_user){
+			$session->login_user($found_user);
 			$session->message("All okay");
-			redirect_to("index_test_page.php");
+			redirect_to("started_test_page.php");
 		} else {
 			$session->message("All BAD");
-			redirect_to("started_test_page.php");
 		}
+	} else {
+		$login = "";
+		$password = "";
 	}
 
 ?>

@@ -1,5 +1,5 @@
 <?php require_once('../includes/initialize.php'); ?>
-<?php confirm_logged_in(); ?>
+<?php $session->logged();  ?>
 
 
 <?php include_layout_template('header.php'); ?>
@@ -9,7 +9,7 @@
 
 <?php
   $_SESSION['get_data'] = null;
-  $stud = Student::find_by_id($_SESSION['user_login']);
+  $stud = Student::find_by_id($_SESSION['user_id']);
 	$results = group_Subject::find_by_group_name($stud->group_name);
   if($results){
     foreach ($results as $result){

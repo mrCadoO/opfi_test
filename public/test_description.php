@@ -1,11 +1,11 @@
 <?php require_once('../includes/initialize.php'); ?>
-<?php confirm_logged_in(); ?>	
+<?php $session->logged();  ?>	
 <?php
 	
 	if(isset($_SESSION['get_data'])){
 		if($_SESSION['get_data'] != $_GET['subject']){
 			$_SESSION['get_data'] = null;
-			$_SESSION['user_login'] = null;
+			$_SESSION['user_id'] = null;
 			redirect_to("index.php");
 		}
 	} else {
@@ -16,7 +16,7 @@
 	$session->annulment(); //unnulment page and assesment
 	if(isset($_POST['submit'])){
 		$result = new Result();
-		$user_id = $_SESSION['user_login'];
+		$user_id = $_SESSION['user_id'];
 		$student = Student::find_by_id($user_id); 
 		$test = group_Subject::find_by_id($_GET['subject']); 
 
