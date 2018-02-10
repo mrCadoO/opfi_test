@@ -1,7 +1,7 @@
 <?php
 require_once(LIB_PATH.DS.'database.php');
 
-class Teacher extends DatabaseObject {
+class Admin extends DatabaseObject {
 	
 	protected static $table_name="teacher";
 	protected static $db_fields = array('id', 'username', 'password', 'first_name', 'last_name');
@@ -25,7 +25,7 @@ class Teacher extends DatabaseObject {
     $username = $database->escape_value($username);
     $password = $database->escape_value($password);
 
-    $sql  = "SELECT * FROM teacher ";
+    $sql  = "SELECT * FROM admin ";
     $sql .= "WHERE username = '{$username}' ";
     $sql .= "AND password = '{$password}' ";
     $sql .= "LIMIT 1";

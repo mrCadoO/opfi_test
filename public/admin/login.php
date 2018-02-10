@@ -11,7 +11,7 @@ if (isset($_POST['submit'])) {
   $password = trim($_POST['password']);
   
   // Check database to see if username/password exist.
-	$found_user = Teacher::authenticate($username, $password);
+	$found_user = Admin::authenticate($username, $password);
 	
   if ($found_user) {
     $session->login($found_user);
