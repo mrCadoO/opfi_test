@@ -1,15 +1,15 @@
 <?php require_once('../includes/initialize.php'); ?>
 <?php $session->logged();  ?>
 
-
+<?php $stud = Student::find_by_id($_SESSION['user_id']);?>
 <?php include_layout_template('header.php'); ?>
 <?php echo output_message($message); ?>
-
+<?php echo $stud->full_name() . ", для вас доступны тесты:<br><br> "; ?>
 
 
 <?php
   $_SESSION['get_data'] = null;
-  $stud = Student::find_by_id($_SESSION['user_id']);
+  //$stud = Student::find_by_id($_SESSION['user_id']);
 	$results = group_Subject::find_by_group_name($stud->group_name);
   if($results){
     foreach ($results as $result){

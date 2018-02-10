@@ -14,7 +14,7 @@ class Student extends DatabaseObject {
 	public $hashed_password;
 
 	
-	function find_user_by_login($login) { 
+	public static function authenticate($login) { 
 		global $database;
 		$safe_username = $database->escape_value($login);
 		$sql  = "SELECT * FROM ".self::$table_name;
@@ -27,6 +27,28 @@ class Student extends DatabaseObject {
 			return null;
 		}	  
 	}
+
+	public static function attempt_login($login, $password) {
+     	$user = self::authenticate($login);
+     	if($user){
+      		if(password_check($password, $user["hashed_password"])){
+       			return $user;
+      		}else {
+       			return false;
+      		}
+      	}else {
+        	return false;
+      	}
+   }
+
+    public function full_name() {
+    	if(isset($this->first_name) && isset($this->last_name)) {
+   		return $this->first_name . " " . $this->last_name;
+    	} else {
+      		return "";
+    	}
+  }
+
 	
 	public static function find_all() {
 		return self::find_by_sql("SELECT * FROM ".self::$table_name);
@@ -139,19 +161,6 @@ class Student extends DatabaseObject {
 	  return ($database->affected_rows() == 1) ? true : false;
 	}
 
-
-	public function attempt_login($login, $password) {
-     	$user = $this->find_user_by_login($login);
-     	if($user){
-      		if(password_check($password, $user["hashed_password"])){
-       			return $user;
-      		}else {
-       			return false;
-      		}
-      	}else {
-        	return false;
-      	}
-   }
 
 	
 }

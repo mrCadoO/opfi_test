@@ -3,7 +3,7 @@ require_once(LIB_PATH.DS.'database.php');
 
 class Admin extends DatabaseObject {
 	
-	protected static $table_name="teacher";
+	protected static $table_name="admin";
 	protected static $db_fields = array('id', 'username', 'password', 'first_name', 'last_name');
 	
 	public $id;
@@ -12,33 +12,56 @@ class Admin extends DatabaseObject {
 	public $first_name;
 	public $last_name;
 	
-  public function full_name() {
-    if(isset($this->first_name) && isset($this->last_name)) {
-      return $this->first_name . " " . $this->last_name;
-    } else {
-      return "";
-    }
-  }
+ 
 
-	public static function authenticate($username="", $password="") {
-    global $database;
-    $username = $database->escape_value($username);
-    $password = $database->escape_value($password);
+	public static function authenticate($username="") {
+   	 	global $database;
+   	 	$username = $database->escape_value($username);
 
-    $sql  = "SELECT * FROM admin ";
-    $sql .= "WHERE username = '{$username}' ";
-    $sql .= "AND password = '{$password}' ";
-    $sql .= "LIMIT 1";
-    $result_array = self::find_by_sql($sql);
-		return !empty($result_array) ? array_shift($result_array) : false;
+    	$sql  = "SELECT * FROM ".self::$table_name;
+    	$sql .= " WHERE username = '{$username}'";
+    	$sql .= " LIMIT 1";
+    	$admin_set = $database->query($sql);
+    	if($admin = mysqli_fetch_assoc($admin_set)){
+    		return $admin;
+   		} else {
+    		return null;
+    	}	
 	}
+
+
+	public static function attempt_login($login, $password) {
+     	$admin = self::authenticate($login);
+     	if($admin){
+      		if(password_check($password, $admin["password"])){
+       			return $admin;
+      		}else {
+       			return false;
+      		}
+      	}else {
+        	return false;
+      	}
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	// Common Database Methods
 	public static function find_all() {
 		return self::find_by_sql("SELECT * FROM ".self::$table_name);
   }
   
-  public static function find_by_id($id=0) {
+  public static function find_by_id($id=1) {
     $result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE id={$id} LIMIT 1");
 		return !empty($result_array) ? array_shift($result_array) : false;
   }
@@ -131,6 +154,14 @@ class Admin extends DatabaseObject {
 	  $database->query($sql);
 	  return ($database->affected_rows() == 1) ? true : false;
 	}
+
+	 public function full_name() {
+    if(isset($this->first_name) && isset($this->last_name)) {
+      return $this->first_name . " " . $this->last_name;
+    } else {
+      return "";
+    }
+  }
 
 }
 

@@ -90,16 +90,5 @@ function log_action($action, $message="") {
    } 
 
   
-  
-  function logged_in() {
-  return isset($_SESSION['user_login']);
-  }
-  
-  
-  function confirm_logged_in() {
-    if (!logged_in()){
-  redirect_to("started_test_page.php");
-}
-}
 
 ?>
