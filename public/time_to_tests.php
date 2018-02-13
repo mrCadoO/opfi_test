@@ -2,22 +2,16 @@
 <?php $session->logged();  ?>
 <?php  find_selected_test(); ?>
 <?php
-
-
     //update assessment (db)
   $user_id = $_SESSION['Id'];
   $result = Result::find_by_id($user_id);
   $result->assessment = $_SESSION['assessment'];
   $result->update_assessment($user_id);
-
-
   //end of test
   $total_count = group_Test::count_all($current_subject);
   if($_GET['page'] > $total_count){
     redirect_to("index.php");
   } 
-
-
   //validation of subject id
   if(isset($_SESSION['get_data'])){
     if($_SESSION['get_data'] != $_GET['subject']){
@@ -27,34 +21,56 @@
     }
   }
   $_SESSION['get_data'] = null;
-
-
-
   //PAGINATION
-	$page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
-	$per_page = 1;
-	$pagination = new Pagination($page, $per_page);
+  $page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
+  $per_page = 1;
+  $pagination = new Pagination($page, $per_page);
   $sql  = "SELECT * FROM selected_test ";
-	$sql .= "WHERE subject_id='{$current_subject}' ";
-	$sql .= "LIMIT {$per_page} ";
-	$sql .= "OFFSET {$pagination->offset()}";
-	$tests = group_Test::find_by_sql($sql);
-
-
+  $sql .= "WHERE subject_id='{$current_subject}' ";
+  $sql .= "LIMIT {$per_page} ";
+  $sql .= "OFFSET {$pagination->offset()}";
+  $tests = group_Test::find_by_sql($sql);
   //validation of page number
   if($_SESSION['NumPage'] != $pagination->current_page){
     redirect_to("started_test_page.php");
   }
 ?>
-	
+  
 
 <?php include_layout_template('header.php'); ?>
+<script type="text/javascript">
+
+
+function td(){
+
+var now = new Date() ;
+var end = '<?php echo $result->end; ?>' * 1000;
+
+var offset = end - now;
+if(offset < 0){
+clearInterval(fs);
+setTimeout('location.replace("index.php")',0);
+}
+var minutes = parseInt(offset/(60*1000))%60;
+var second= parseInt(offset/1000)%60;
+var myDivTime=document.getElementById("time");
+myDivTime.innerHTML = minutes
+myDivTime.innerHTML += ":"
+myDivTime.innerHTML += second;
+
+}
+
+fs = setInterval(td, 0);
+
+//setTimeout('location.replace("index.php")',offset);
+
+</script> 
+<div id="time"></div>
 <?php echo output_message($message); ?>
 <?php echo $session->output_increase_num(); ?>
 
 <form method="POST">
 <?php
-
   foreach ($tests as $test){
     $output  = htmlentities($test->question);
     $output .= "<br />";
@@ -98,7 +114,6 @@
 <?php
   //user answer
   $check = isset($_POST['answer']) ? $_POST['answer'] : "" ;
-
   //check the correct answer
   switch(true){  
     case($check == 1 && !empty($test->truth1)) :
@@ -110,7 +125,6 @@
       $session->increase();
       $session->num_page();
       redirect_to("time_to_tests.php?page={$pagination->next_page()}&subject={$test->subject_id}");             
-
     case($check == 3 && !empty($test->truth3)):
       $session->increase();
       $session->num_page();
@@ -138,5 +152,3 @@
     }
 ?>
 <?php include_layout_template('footer.php'); ?>
-
-

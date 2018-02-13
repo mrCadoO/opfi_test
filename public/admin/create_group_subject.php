@@ -9,6 +9,7 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 			$subject = new group_Subject();
 			$subject->name = $_POST['test_name'];
 			$subject->group_name = $_POST['group_name'];
+			$subject->time = 300;
 			$session->message('успешно создана.');
 			$subject->create();
 			redirect_to("select_questions_for_group.php?subject={$subject->id}");

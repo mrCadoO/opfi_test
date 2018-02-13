@@ -122,7 +122,7 @@ class group_Test extends DatabaseObject {
 		}
 		$sql = "UPDATE ".self::$table_name." SET ";
 		$sql .= join(", ", $attribute_pairs);
-		$sql .= " WHERE id=". $database->escape_value($this->id);
+		$sql .= " WHERE id=34". $database->escape_value($this->id);
 	  $database->query($sql);
 	  return ($database->affected_rows() == 1) ? true : false;
 	}

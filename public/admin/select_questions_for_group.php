@@ -11,6 +11,18 @@ $subj = group_Subject::find_by_id($subject);
 		redirect_to("manage_test.php");
 	}
 
+	if(isset($_POST['submit'])){
+		if($_POST['time'] >= 60){
+			$time = 59 * 60;
+		} else {
+			$time = (int)$_POST['time'] *60;
+		}
+		$subj->time = !empty($_POST['time']) ? (int)$time : $subj->time;
+		$subj->update();
+		redirect_to("select_questions_for_group.php?subject={$subject}");
+
+	}
+
 
 include_layout_template('admin_header.php'); ?>	
 <a href="list_group_test.php">&laquo; Назад</a> <br/><br/>	
@@ -39,7 +51,7 @@ include_layout_template('admin_header.php'); ?>
     echo "</ul>";
  ?></th>
 
-<th><?php
+<th style="width: 400px;"><?php
 	$output  = htmlentities($subj->group_name);
 	$output .= "<br><br>";
 	$output .= "<a href=\"delete_all_group_test.php?id=";
@@ -61,7 +73,17 @@ include_layout_template('admin_header.php'); ?>
 			echo $output;
 		}
 	}
-?></th></tr>
+?></th>
+<th style="width: 300px; ">
+	<form action="select_questions_for_group.php?subject=<?php echo $subject; ?>" method="POST">
+	<p>Время на проведение теста: <?php echo $subj->time/60 . " мин."; ?></p>
+<input type="text" name="time">	мин
+<br><br>
+<input type="submit" name="submit">
+</form></th>
+</tr>
 
 </table>	
+
+
 <?php include_layout_template('admin_footer.php'); ?>

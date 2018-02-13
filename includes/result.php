@@ -4,7 +4,7 @@ require_once(LIB_PATH.DS.'database.php');
 class Result extends DatabaseObject {
 	
 	protected static $table_name="result";
-	protected static $db_fields = array('first_name', 'last_name', 'group_name', 'assessment', 'test_name');
+	protected static $db_fields = array('first_name', 'last_name', 'group_name', 'assessment', 'test_name', 'now', 'end');
 	
 	public $id;
 	public $first_name;
@@ -12,7 +12,8 @@ class Result extends DatabaseObject {
 	public $group_name;
 	public $assessment;
 	public $test_name;
-	public static $pass=false;
+	public $now;
+	public $end;
 	
 
 	// Common Database Methods

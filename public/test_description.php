@@ -11,20 +11,19 @@
 	} else {
 		$_SESSION['get_data'] = $_GET['subject'];
 	}
-
-
 	$session->annulment(); //unnulment page and assesment
 	if(isset($_POST['submit'])){
 		$result = new Result();
 		$user_id = $_SESSION['user_id'];
 		$student = Student::find_by_id($user_id); 
 		$test = group_Subject::find_by_id($_GET['subject']); 
-
 		$result->first_name = $student->first_name;
 		$result->last_name  = $student->last_name;
 		$result->group_name = $student->group_name;
 		$result->assessment = '0';
 		$result->test_name = $test->name;
+		$result->now = time();
+		$result->end = time() + $test->time;
 		$result->create();
 		$_SESSION['Id'] = $result->id;
 		redirect_to("time_to_tests.php?page=1&subject={$_GET['subject']}");
@@ -38,7 +37,6 @@
 <?php
  	$subj = group_Subject::find_by_id($_GET['subject']);
  	echo "Тема: ". $subj->name . "<br><br><br><br>";
-
  	$info = Description_test::find_by_test_id($_GET['subject']);
 	if(isset($info->description)){
 		echo "Описание: ". $info->description . "<br><br>";
