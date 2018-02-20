@@ -7,7 +7,8 @@
 
 
 
-<a href="started_test_page.php">Пройти тесты</a>
+<a href="started_test_page.php">Пройти тесты</a><br><br><br>
+<a href="echo.php">debug</a>
 
 
 

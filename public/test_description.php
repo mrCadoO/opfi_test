@@ -1,6 +1,31 @@
 <?php require_once('../includes/initialize.php'); ?>
 <?php $session->logged();  ?>	
 <?php
+
+	$user_id = $_SESSION['user_id'];
+	$student = Student::find_by_id($user_id);
+	$first_name = $student->first_name;
+	$last_name = $student->last_name;
+	$group_name = $student->group_name;
+	$test = group_Subject::find_by_id($_GET['subject']); 
+	$priv_results = Result::find_by_result($first_name, $last_name, $group_name);
+		 
+  if($priv_results){
+    foreach ($priv_results as $priv_result) {
+     $arr[] = $priv_result->test_name;
+  	}
+  }
+
+  if(isset($arr)){
+  	if(in_array($test->name, $arr)){
+  		//redirect_to("index.php");
+  	}
+  }
+
+?>
+
+
+<?php
 	
 	if(isset($_SESSION['get_data'])){
 		if($_SESSION['get_data'] != $_GET['subject']){
@@ -13,13 +38,10 @@
 	}
 	$session->annulment(); //unnulment page and assesment
 	if(isset($_POST['submit'])){
-		$result = new Result();
-		$user_id = $_SESSION['user_id'];
-		$student = Student::find_by_id($user_id); 
-		$test = group_Subject::find_by_id($_GET['subject']); 
-		$result->first_name = $student->first_name;
-		$result->last_name  = $student->last_name;
-		$result->group_name = $student->group_name;
+		$result = new Result(); 
+		$result->first_name = $first_name;
+		$result->last_name  = $last_name;
+		$result->group_name = $group_name;
 		$result->assessment = '0';
 		$result->test_name = $test->name;
 		$result->now = time();

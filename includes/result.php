@@ -27,6 +27,18 @@ class Result extends DatabaseObject {
   }
 
 
+  public static function find_by_result($first_name, $last_name, $group_name){
+  	global $database;
+
+  	$sql  = "SELECT * FROM ".self::$table_name;
+  	$sql .= " WHERE first_name='{$first_name}'";
+  	$sql .= " AND last_name='{$last_name}'";
+  	$sql .= " AND group_name='{$group_name}'";
+  	$result = self::find_by_sql($sql);
+  	return $result;
+  }
+
+
   
   public static function find_by_sql($sql="") {
     global $database;

@@ -21,6 +21,9 @@
     }
   }
   $_SESSION['get_data'] = null;
+
+
+
   //PAGINATION
   $page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
   $per_page = 1;
@@ -30,6 +33,8 @@
   $sql .= "LIMIT {$per_page} ";
   $sql .= "OFFSET {$pagination->offset()}";
   $tests = group_Test::find_by_sql($sql);
+
+
   //validation of page number
   if($_SESSION['NumPage'] != $pagination->current_page){
     redirect_to("started_test_page.php");
@@ -49,20 +54,18 @@ var end = '<?php echo $result->end; ?>' * 1000;
 var offset = end - now;
 if(offset < 0){
 clearInterval(fs);
-setTimeout('location.replace("index.php")',0);
+location.replace("index.php");
 }
-var minutes = parseInt(offset/(60*1000))%60;
-var second= parseInt(offset/1000)%60;
-var myDivTime=document.getElementById("time");
-myDivTime.innerHTML = minutes
-myDivTime.innerHTML += ":"
-myDivTime.innerHTML += second;
+var min = parseInt(offset/(60*1000))%60;
+var sec= parseInt(offset/1000)%60;
+
+if(min < 10) min = "0" + min;
+if(sec < 10) sec = "0" + sec;
+document.getElementById("time").innerHTML = min + ":" + sec;
 
 }
 
 fs = setInterval(td, 0);
-
-//setTimeout('location.replace("index.php")',offset);
 
 </script> 
 <div id="time"></div>
@@ -71,6 +74,7 @@ fs = setInterval(td, 0);
 
 <form method="POST">
 <?php
+
   foreach ($tests as $test){
     $output  = htmlentities($test->question);
     $output .= "<br />";
@@ -124,7 +128,8 @@ fs = setInterval(td, 0);
     case($check == 2 && !empty($test->truth2)) :
       $session->increase();
       $session->num_page();
-      redirect_to("time_to_tests.php?page={$pagination->next_page()}&subject={$test->subject_id}");             
+      redirect_to("time_to_tests.php?page={$pagination->next_page()}&subject={$test->subject_id}");  
+
     case($check == 3 && !empty($test->truth3)):
       $session->increase();
       $session->num_page();
