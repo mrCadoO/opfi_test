@@ -60,14 +60,18 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 	<li><?php 
 		if(!empty($test->answer1)){
 			echo $test->answer1; } else {echo "Вопрос не задан."; } ?>
-		<input type="radio" name="truth[]" value="1" />
+		<input type="radio" name="truth[]" value="1" <?php 
+			if($test->truth1){ echo "checked"; }
+		?> />
 		<input type="text" name="answer1" value="" />
 	</li><br/><br/>
 
 	<li><?php 
 		if(!empty($test->answer2)){
 			echo $test->answer2; } else {echo "Вопрос не задан."; } ?>
-		<input type="radio" name="truth[]" value="2" />
+		<input type="radio" name="truth[]" value="2" <?php 
+			if($test->truth2){ echo "checked"; }
+		?>	/>
 		<input type="text" name="answer2" value="" />
 	</li><br/><br/>
 	
@@ -75,28 +79,36 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); } ?>
 	<li><?php 
 		if(!empty($test->answer3)){
 			echo $test->answer3; } else {echo "Вопрос не задан."; } ?>
-		<input type="radio" name="truth[]" value="3" />
+		<input type="radio" name="truth[]" value="3" <?php 
+			if($test->truth3){ echo "checked"; }
+		?> />
 		<input type="text" name="answer3" value="" />
 	</li><br/><br/>
 
 	<li><?php 
 		if(!empty($test->answer4)){
 			echo $test->answer4; } else {echo "Вопрос не задан."; } ?>
-		<input type="radio" name="truth[]" value="4" />
+		<input type="radio" name="truth[]" value="4" <?php 
+			if($test->truth4){ echo "checked"; }
+		?> />
 		<input type="text" name="answer4" value="" />
 	</li><br/><br/>
 
 	<li><?php 
 		if(!empty($test->answer5)){
 			echo $test->answer5; } else {echo "Вопрос не задан."; } ?>
-		<input type="radio" name="truth[]" value="5" />
+		<input type="radio" name="truth[]" value="5" <?php 
+			if($test->truth5){ echo "checked"; }
+		?> />
 		<input type="text" name="answer5" value="" />
 	</li><br/><br/>
 
 	<li><?php 
 		if(!empty($test->answer6)){
 			echo $test->answer6; } else {echo "Вопрос не задан."; } ?>
-		<input type="radio" name="truth[]" value="6" />
+		<input type="radio" name="truth[]" value="6" <?php 
+			if($test->truth6){ echo "checked"; }
+		?> />
 		<input type="text" name="answer6" value="" />
 	</li><br/><br/>
 </ul><br /><br /><br />

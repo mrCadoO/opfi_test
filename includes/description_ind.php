@@ -1,53 +1,16 @@
 <?php
 require_once(LIB_PATH.DS.'database.php');
 
-class Student extends DatabaseObject {
+class Description_test_ind extends DatabaseObject {
 	
-	protected static $table_name="students";
-	protected static $db_fields = array('first_name', 'last_name', 'group_name', 'login', 'hashed_password');
+	protected static $table_name="description_test_ind";
+	protected static $db_fields = array('description', 'test_id');
 	
 	public $id;
-	public $first_name;
-	public $last_name;
-	public $group_name;
-	public $login;
-	public $hashed_password;
+	public $description;
+	public $test_id;
 
 	
-	public static function authenticate($login) { 
-		global $database;
-		$safe_username = $database->escape_value($login);
-		$sql  = "SELECT * FROM ".self::$table_name;
-		$sql .= " WHERE login = '{$safe_username}'";
-		$sql .= " LIMIT 1";
-		$user_set = $database->query($sql);
-		if($user = mysqli_fetch_assoc($user_set)){
-			return $user;
-		} else {
-			return null;
-		}	  
-	}
-
-	public static function attempt_login($login, $password) {
-     	$user = self::authenticate($login);
-     	if($user){
-      		if(password_check($password, $user["hashed_password"])){
-       			return $user;
-      		}else {
-       			return false;
-      		}
-      	}else {
-        	return false;
-      	}
-   }
-
-    public function full_name() {
-    	if(isset($this->first_name) && isset($this->last_name)) {
-   		return $this->first_name . " " . $this->last_name;
-    	} else {
-      		return "";
-    	}
-  }
 
 	
 	public static function find_all() {
@@ -55,13 +18,8 @@ class Student extends DatabaseObject {
   }
 
 
-   public static function find_stud_by_group($group_name){
-		return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE group_name='{$group_name}'");
-   }
-
-
-  public static function find_by_id($id=0) {
-    $result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE id={$id} LIMIT 1");
+  public static function find_by_test_id($id=0) {
+    $result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE test_id={$id} LIMIT 1");
 		return !empty($result_array) ? array_shift($result_array) : false;
   }
 
@@ -121,6 +79,10 @@ class Student extends DatabaseObject {
 	  return $clean_attributes;
 	}
 	
+	public function save($test_id){
+	  return self::find_by_test_id($test_id) ? $this->update() : $this->create();
+	  //return isset($this->test_id) ? $this->update() : $this->create();
+	}
 	
 	public function create() {
 		global $database;
@@ -147,7 +109,7 @@ class Student extends DatabaseObject {
 		}
 		$sql = "UPDATE ".self::$table_name." SET ";
 		$sql .= join(", ", $attribute_pairs);
-		$sql .= " WHERE id=". $database->escape_value($this->id);
+		$sql .= " WHERE test_id={$this->test_id}";
 	  $database->query($sql);
 	  return ($database->affected_rows() == 1) ? true : false;
 	}
@@ -161,8 +123,15 @@ class Student extends DatabaseObject {
 	  return ($database->affected_rows() == 1) ? true : false;
 	}
 
+	public function delete_all_test_by_subject_id($subjec_id){
+		global $database;
+	  $sql = "DELETE FROM ".self::$table_name;
+	  $sql .= " WHERE subject_id=". $database->escape_value($subjec_id);
+	  $database->query($sql);
+	  return ($database->affected_rows() == 1) ? true : false;
+	}
 
-	
+
 }
 
 ?>

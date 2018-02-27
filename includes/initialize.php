@@ -24,9 +24,12 @@ require_once(LIB_PATH.DS.'test.php');
 require_once(LIB_PATH.DS.'result.php');
 require_once(LIB_PATH.DS.'pagination.php');
 require_once(LIB_PATH.DS.'description.php');
+require_once(LIB_PATH.DS.'description_ind.php');
 require_once(LIB_PATH.DS.'group.php');
 require_once(LIB_PATH.DS.'group_test.php');
 require_once(LIB_PATH.DS.'group_subject.php');
+require_once(LIB_PATH.DS.'subject_for_selected_stud.php');
+require_once(LIB_PATH.DS.'test_for_selected_stud.php');
 
 
 ?>

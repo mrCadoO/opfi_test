@@ -65,3 +65,111 @@ table.bordered tr th, table.bordered tr td{
 	color: #8D0D19;
 }
 
+ 
+
+#invisBox1{
+	margin-top: 10px;
+	margin-left: -3px;
+	background: #c2c8ea;
+	width:600px;
+	height: 128px;
+	border-radius: 10px;
+	display: none;
+	position: absolute;
+}
+
+#invisBox2{
+	margin-top: 10px;
+	margin-left: -3px;
+	background: #c2c8ea;
+	width:400px;
+	height: 125px;
+	border-radius: 10px;
+	display: none;
+	position: absolute;
+}
+
+#invisBox3{
+	margin-top: -8px;
+	margin-left: -3px;
+	background: #c2c8ea;
+	width:400px;
+	height: 125px;
+	border-radius: 10px;
+	display: none;
+	position: absolute;
+}
+
+#invisBox1Close{
+	position: absolute;
+	margin-left: 580px;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 18px;
+	cursor: pointer;
+}
+
+#invisBox2Close{
+	margin-left: 380px;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 18px;
+	cursor: pointer;
+}
+
+#invisBox3Close{
+	margin-left: 380px;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 18px;
+	cursor: pointer;
+}
+
+
+#mainBox{
+	cursor: pointer;
+}
+
+
+#inp_subj_name{
+	margin-left: 20px;
+	width: 500px;
+}
+
+#submit_subj_name{
+	margin-left: 20px;
+	width: 110px;
+}
+
+#timeBox{
+	display: block;
+	cursor: pointer;
+}
+
+
+#submit_subj_time{
+	margin-left: 20px;
+	width: 110px;
+}
+
+#inp_subj_time{
+	margin-left: 20px;
+	width: 180px;
+}
+
+
+#group_sel_test{
+	display: block;
+	cursor: pointer;
+}
+
+#groupName{
+	margin-top: 16px;
+	margin-left: 20px;
+	width: 156px;
+}
+
+#submit_group_name{
+	margin-left: 20px;
+	width: 110px;
+}
+
+
+

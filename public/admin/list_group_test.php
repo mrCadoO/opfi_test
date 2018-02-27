@@ -7,6 +7,7 @@ if(!$session->is_loged_in()){ redirect_to("login.php"); }
 
 
 <?php include_layout_template('admin_header.php'); ?>	
+<a href="manage_test.php">&laquo; Назад</a> <br/><br/><br/>
 <?php echo output_message($message); ?>
 <a href="create_group_subject.php">Создать тест для студентов</a> <br/><br/><br/>
 <?php 

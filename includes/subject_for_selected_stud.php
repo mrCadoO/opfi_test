@@ -1,82 +1,32 @@
 <?php
 require_once(LIB_PATH.DS.'database.php');
 
-class Student extends DatabaseObject {
+class selected_stud_Subject extends DatabaseObject {
 	
-	protected static $table_name="students";
-	protected static $db_fields = array('first_name', 'last_name', 'group_name', 'login', 'hashed_password');
+	protected static $table_name="subject_for_selected_stud";
+	protected static $db_fields = array('name', 'time', 'user_id');
 	
 	public $id;
-	public $first_name;
-	public $last_name;
-	public $group_name;
-	public $login;
-	public $hashed_password;
-
+	public $name;
+	public $time;
+	public $user_id;
 	
-	public static function authenticate($login) { 
-		global $database;
-		$safe_username = $database->escape_value($login);
-		$sql  = "SELECT * FROM ".self::$table_name;
-		$sql .= " WHERE login = '{$safe_username}'";
-		$sql .= " LIMIT 1";
-		$user_set = $database->query($sql);
-		if($user = mysqli_fetch_assoc($user_set)){
-			return $user;
-		} else {
-			return null;
-		}	  
-	}
-
-	public static function attempt_login($login, $password) {
-     	$user = self::authenticate($login);
-     	if($user){
-      		if(password_check($password, $user["hashed_password"])){
-       			return $user;
-      		}else {
-       			return false;
-      		}
-      	}else {
-        	return false;
-      	}
-   }
-
-    public function full_name() {
-    	if(isset($this->first_name) && isset($this->last_name)) {
-   		return $this->first_name . " " . $this->last_name;
-    	} else {
-      		return "";
-    	}
-  }
-
 	
 	public static function find_all() {
 		return self::find_by_sql("SELECT * FROM ".self::$table_name);
-  }
-
-
-   public static function find_stud_by_group($group_name){
-		return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE group_name='{$group_name}'");
-   }
-
-
-  public static function find_by_id($id=0) {
-    $result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE id={$id} LIMIT 1");
-		return !empty($result_array) ? array_shift($result_array) : false;
-  }
-
-
-  public static function count_all($id){
-  		global $database;
-  		$sql  = "SELECT COUNT(*) FROM " .self::$table_name;
-  		$sql .= " WHERE subject_id='{$id}'";
-  		$result_set = $database->query($sql);
-  		$row = $database->fetch_array($result_set);
-  			return array_shift($row);
   	}
-
-
   
+  
+  public static function find_by_user_id($id=0) {
+    return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE user_id={$id}");
+  }
+
+
+  public static function find_by_group_name($name="") {
+   return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE group_name='{$name}'");
+  }
+
+     
   public static function find_by_sql($sql="") {
     global $database;
     $result_set = $database->query($sql);
@@ -121,6 +71,10 @@ class Student extends DatabaseObject {
 	  return $clean_attributes;
 	}
 	
+	public function save() {
+	  // A new record won't have an id yet.
+	  return isset($this->id) ? $this->update() : $this->create();
+	}
 	
 	public function create() {
 		global $database;
@@ -163,6 +117,7 @@ class Student extends DatabaseObject {
 
 
 	
+
 }
 
 ?>
